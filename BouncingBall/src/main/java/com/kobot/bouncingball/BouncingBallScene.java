@@ -1,5 +1,7 @@
-package com.kobot.framework;
+package com.kobot.bouncingball;
 
+import com.kobot.framework.Display;
+import com.kobot.framework.Scene;
 import com.kobot.framework.object.Box;
 import com.kobot.framework.object.Sphere;
 import com.kobot.framework.object.common.GameObjectFactory;

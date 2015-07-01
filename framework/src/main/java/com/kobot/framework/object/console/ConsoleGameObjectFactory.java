@@ -5,17 +5,11 @@ import com.kobot.framework.object.Box;
 import com.kobot.framework.object.GameObject;
 import com.kobot.framework.object.Sphere;
 import com.kobot.framework.object.common.GameObjectFactory;
-import com.kobot.framework.BouncingBallScene;
-import com.kobot.framework.Scene;
 
 import javax.vecmath.Vector3f;
 import java.awt.*;
 
 public class ConsoleGameObjectFactory implements GameObjectFactory {
-
-    public Scene createBouncingBallScene() {
-        return new BouncingBallScene(this, new ConsoleDisplay());
-    }
 
     public Sphere createDynamicSphere(float massInKilograms, float radiusInMeters, Color color, Vector3f position) {
         return new Sphere(massInKilograms, radiusInMeters, position, new DefaultMotionState());

@@ -7,7 +7,7 @@ import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
 import org.jetbrains.annotations.NotNull;
 
-public class JpctDisplay implements IPaintListener, Display {
+public class JpctDisplay implements Display {
     static {
         configJpct();
     }
@@ -26,7 +26,6 @@ public class JpctDisplay implements IPaintListener, Display {
         FrameBuffer result = new FrameBuffer(800, 600, FrameBuffer.SAMPLINGMODE_NORMAL);
         result.disableRenderer(IRenderer.RENDERER_SOFTWARE);
         result.enableRenderer(IRenderer.RENDERER_OPENGL, IRenderer.MODE_OPENGL);
-        result.setPaintListener(this);
 
         return result;
     }
@@ -75,13 +74,5 @@ public class JpctDisplay implements IPaintListener, Display {
         world.draw(buffer);
         buffer.update();
         buffer.displayGLOnly();
-    }
-
-    public void startPainting() {
-
-    }
-
-    public void finishedPainting() {
-
     }
 }

@@ -1,11 +1,12 @@
-package com.kobot.framework;
+package com.kobot.bouncingball;
 
+import com.kobot.framework.Game;
+import com.kobot.framework.Scene;
+import com.kobot.framework.object.jpct.JpctDisplay;
 import com.kobot.framework.object.jpct.JpctGameObjectFactory;
-import com.kobot.framework.object.common.GameObjectFactory;
 
 public class BouncingBallGame extends Game {
-    private final GameObjectFactory factory = new JpctGameObjectFactory();
-    Scene scene = factory.createBouncingBallScene();
+    Scene scene = new BouncingBallScene(new JpctGameObjectFactory(), new JpctDisplay());
 
     public static void main(String[] args) {
         new BouncingBallGame().run();
