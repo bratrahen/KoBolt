@@ -7,8 +7,9 @@ import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
 import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.DynamicsWorld;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
-import com.kobot.framework.object.GameObject;
-import com.kobot.framework.object.common.GameObjectFactory;
+import com.kobot.framework.objects.physics.GameObject;
+import com.kobot.framework.objects.graphic.common.GameObjectFactory;
+import com.kobot.framework.objects.graphic.common.Display;
 
 import javax.vecmath.Vector3f;
 

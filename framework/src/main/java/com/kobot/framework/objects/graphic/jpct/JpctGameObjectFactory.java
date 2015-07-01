@@ -1,9 +1,9 @@
-package com.kobot.framework.object.jpct;
+package com.kobot.framework.objects.graphic.jpct;
 
-import com.kobot.framework.object.Box;
-import com.kobot.framework.object.GameObject;
-import com.kobot.framework.object.Sphere;
-import com.kobot.framework.object.common.GameObjectFactory;
+import com.kobot.framework.objects.physics.Box;
+import com.kobot.framework.objects.physics.GameObject;
+import com.kobot.framework.objects.physics.Sphere;
+import com.kobot.framework.objects.graphic.common.GameObjectFactory;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
 import com.threed.jpct.Texture;

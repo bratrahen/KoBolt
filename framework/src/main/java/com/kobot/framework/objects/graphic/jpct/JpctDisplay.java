@@ -1,8 +1,8 @@
-package com.kobot.framework.object.jpct;
+package com.kobot.framework.objects.graphic.jpct;
 
-import com.kobot.framework.object.GameObject;
-import com.kobot.framework.GhostControls;
-import com.kobot.framework.Display;
+import com.kobot.framework.objects.physics.GameObject;
+import com.kobot.framework.controls.GhostControls;
+import com.kobot.framework.objects.graphic.common.Display;
 import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
 import org.jetbrains.annotations.NotNull;

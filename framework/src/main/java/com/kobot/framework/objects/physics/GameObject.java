@@ -1,4 +1,4 @@
-package com.kobot.framework.object;
+package com.kobot.framework.objects.physics;
 
 import com.bulletphysics.collision.shapes.CollisionShape;
 import com.bulletphysics.dynamics.RigidBody;

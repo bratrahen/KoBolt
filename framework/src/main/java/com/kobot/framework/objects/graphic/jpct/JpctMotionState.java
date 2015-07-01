@@ -1,4 +1,4 @@
-package com.kobot.framework.object.jpct;
+package com.kobot.framework.objects.graphic.jpct;
 
 import com.bulletphysics.linearmath.MatrixUtil;
 import com.bulletphysics.linearmath.MotionState;

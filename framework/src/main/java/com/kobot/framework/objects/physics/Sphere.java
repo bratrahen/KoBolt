@@ -1,7 +1,7 @@
-package com.kobot.framework.object;
+package com.kobot.framework.objects.physics;
 
-import com.bulletphysics.collision.shapes.BoxShape;
 import com.bulletphysics.collision.shapes.CollisionShape;
+import com.bulletphysics.collision.shapes.SphereShape;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
 import com.bulletphysics.linearmath.MotionState;
@@ -9,9 +9,9 @@ import com.bulletphysics.linearmath.Transform;
 
 import javax.vecmath.Vector3f;
 
-public class Box extends GameObject {
-    private Box(float massInKilograms, float[] halfExtends, Vector3f position, MotionState motionState) {
-        CollisionShape shape = new BoxShape(new Vector3f(halfExtends));
+public class Sphere extends GameObject {
+    public Sphere(float massInKilograms, float radiusInMeters, Vector3f position, MotionState motionState) {
+        CollisionShape shape = new SphereShape(radiusInMeters);
         Vector3f localInertia = calculateInertia(shape, massInKilograms);
 
         Transform transform = new Transform();
@@ -23,10 +23,7 @@ public class Box extends GameObject {
         rbInfo.restitution = 1.0f;
         rbInfo.linearDamping = 0.0f;
         rbInfo.angularDamping = 0.0f;
-        body = new RigidBody(rbInfo);
-    }
 
-    public Box(float massInKilograms, float sideInMeters, Vector3f position, MotionState motionState) {
-        this(massInKilograms, new float[]{sideInMeters/2f, sideInMeters/2f, sideInMeters/2f}, position, motionState);
+        body = new RigidBody(rbInfo);
     }
 }

@@ -1,9 +1,10 @@
-package com.kobot.framework.object;
+package com.kobot.framework.objects;
 
 import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.Transform;
 import com.kobot.framework.StubFactory;
 import com.kobot.framework.TestGame;
+import com.kobot.framework.objects.physics.Sphere;
 import org.junit.Test;
 
 import javax.vecmath.Vector3f;

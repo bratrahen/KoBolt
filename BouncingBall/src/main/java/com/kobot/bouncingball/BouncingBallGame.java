@@ -2,8 +2,8 @@ package com.kobot.bouncingball;
 
 import com.kobot.framework.Game;
 import com.kobot.framework.Scene;
-import com.kobot.framework.object.jpct.JpctDisplay;
-import com.kobot.framework.object.jpct.JpctGameObjectFactory;
+import com.kobot.framework.objects.graphic.jpct.JpctDisplay;
+import com.kobot.framework.objects.graphic.jpct.JpctGameObjectFactory;
 
 public class BouncingBallGame extends Game {
     Scene scene = new BouncingBallScene(new JpctGameObjectFactory(), new JpctDisplay());

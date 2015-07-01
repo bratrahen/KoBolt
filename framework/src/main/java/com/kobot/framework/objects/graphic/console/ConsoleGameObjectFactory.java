@@ -1,10 +1,10 @@
-package com.kobot.framework.object.console;
+package com.kobot.framework.objects.graphic.console;
 
 import com.bulletphysics.linearmath.DefaultMotionState;
-import com.kobot.framework.object.Box;
-import com.kobot.framework.object.GameObject;
-import com.kobot.framework.object.Sphere;
-import com.kobot.framework.object.common.GameObjectFactory;
+import com.kobot.framework.objects.physics.Box;
+import com.kobot.framework.objects.physics.GameObject;
+import com.kobot.framework.objects.physics.Sphere;
+import com.kobot.framework.objects.graphic.common.GameObjectFactory;
 
 import javax.vecmath.Vector3f;
 import java.awt.*;

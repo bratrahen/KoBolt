@@ -1,4 +1,4 @@
-package com.kobot.framework;
+package com.kobot.framework.controls;
 
 import com.threed.jpct.*;
 import com.threed.jpct.util.KeyMapper;

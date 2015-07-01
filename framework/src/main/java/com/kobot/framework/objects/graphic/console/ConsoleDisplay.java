@@ -1,7 +1,7 @@
-package com.kobot.framework.object.console;
+package com.kobot.framework.objects.graphic.console;
 
-import com.kobot.framework.Display;
-import com.kobot.framework.object.GameObject;
+import com.kobot.framework.objects.graphic.common.Display;
+import com.kobot.framework.objects.physics.GameObject;
 
 import java.util.ArrayList;
 import java.util.Collection;

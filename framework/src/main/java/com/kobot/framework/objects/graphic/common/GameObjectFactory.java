@@ -1,8 +1,7 @@
-package com.kobot.framework.object.common;
+package com.kobot.framework.objects.graphic.common;
 
-import com.kobot.framework.object.Box;
-import com.kobot.framework.object.Sphere;
-import com.kobot.framework.Scene;
+import com.kobot.framework.objects.physics.Box;
+import com.kobot.framework.objects.physics.Sphere;
 
 import javax.vecmath.Vector3f;
 import java.awt.*;
