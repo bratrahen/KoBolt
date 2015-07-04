@@ -3,10 +3,7 @@ package com.kobot.framework.entitysystem.systems;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.HealthComponent;
-import com.kobot.framework.entitysystem.components.RendererComponent;
-import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 
-import java.util.Collection;
 import java.util.Set;
 
 public class HealhSystem extends System{

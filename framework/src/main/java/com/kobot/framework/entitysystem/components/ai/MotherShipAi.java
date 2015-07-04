@@ -1,5 +1,6 @@
 package com.kobot.framework.entitysystem.components.ai;
 
+import com.kobot.framework.entitysystem.components.api.AiComponent;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.manager.EntityManager;

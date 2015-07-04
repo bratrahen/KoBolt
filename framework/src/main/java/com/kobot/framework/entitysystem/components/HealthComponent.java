@@ -1,6 +1,8 @@
 package com.kobot.framework.entitysystem.components;
 
-public class HealthComponent implements Component{
+import com.kobot.framework.entitysystem.components.api.UniqueComponent;
+
+public class HealthComponent implements UniqueComponent {
     public int currentHealth;
     public int maxHealth;
     public boolean isAlive;

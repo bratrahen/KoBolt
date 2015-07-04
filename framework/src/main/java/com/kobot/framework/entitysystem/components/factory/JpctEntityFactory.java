@@ -2,7 +2,7 @@ package com.kobot.framework.entitysystem.components.factory;
 
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
-import com.kobot.framework.entitysystem.components.RendererComponent;
+import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.objects.physics.Box;
 import com.kobot.framework.objects.physics.Sphere;
 import com.threed.jpct.Object3D;

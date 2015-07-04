@@ -1,10 +1,9 @@
 package com.kobot.framework.entitysystem.manager;
 
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.Component;
+import com.kobot.framework.entitysystem.components.api.Component;
 import com.kobot.framework.entitysystem.components.ComponentStub;
 import com.kobot.framework.entitysystem.components.SubComponentStub;
-import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 

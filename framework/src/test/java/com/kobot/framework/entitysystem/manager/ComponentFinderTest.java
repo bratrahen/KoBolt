@@ -4,11 +4,9 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubEntityFactory;
 import com.kobot.framework.entitysystem.components.PhysicsComponent;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
-import com.kobot.framework.entitysystem.components.RendererComponent;
+import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
-import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 

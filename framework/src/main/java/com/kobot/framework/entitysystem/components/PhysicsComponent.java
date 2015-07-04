@@ -3,11 +3,13 @@ package com.kobot.framework.entitysystem.components;
 
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.Transform;
+import com.kobot.framework.entitysystem.components.api.Component;
+import com.kobot.framework.entitysystem.components.api.UniqueComponent;
 
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
-public class PhysicsComponent implements Component {
+public class PhysicsComponent implements UniqueComponent{
     public RigidBody body;
 
     public PhysicsComponent(RigidBody body) {

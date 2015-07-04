@@ -2,7 +2,7 @@ package com.kobot.framework.entitysystem;
 
 import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.MotionState;
-import com.kobot.framework.entitysystem.components.RendererComponent;
+import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.factory.EntityFactory;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.jetbrains.annotations.NotNull;

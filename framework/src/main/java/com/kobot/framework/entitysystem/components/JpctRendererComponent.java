@@ -1,6 +1,7 @@
 package com.kobot.framework.entitysystem.components;
 
 import com.bulletphysics.linearmath.MotionState;
+import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.objects.graphic.jpct.JpctMotionState;
 import com.threed.jpct.Object3D;
 

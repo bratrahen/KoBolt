@@ -3,7 +3,7 @@ package com.kobot.framework.entitysystem.manager;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.Component;
+import com.kobot.framework.entitysystem.components.api.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;

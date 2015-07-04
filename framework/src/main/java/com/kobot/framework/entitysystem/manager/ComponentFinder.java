@@ -3,9 +3,10 @@ package com.kobot.framework.entitysystem.manager;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.*;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
+import com.kobot.framework.entitysystem.components.api.Component;
+import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.Set;
 
 @SuppressWarnings("unchecked")

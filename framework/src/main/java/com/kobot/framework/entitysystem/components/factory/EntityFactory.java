@@ -4,7 +4,7 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
 import com.kobot.framework.entitysystem.components.PhysicsComponent;
-import com.kobot.framework.entitysystem.components.RendererComponent;
+import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
 import com.kobot.framework.objects.physics.Box;
 import com.kobot.framework.objects.physics.GameObject;

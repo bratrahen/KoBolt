@@ -1,8 +1,9 @@
 package com.kobot.framework.entitysystem.components;
 
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.components.api.Component;
 import com.kobot.framework.entitysystem.components.factory.EntityFactory;
+import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import org.jetbrains.annotations.NotNull;
 
 import javax.vecmath.Vector3f;
