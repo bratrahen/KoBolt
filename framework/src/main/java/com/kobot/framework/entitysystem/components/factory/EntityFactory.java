@@ -1,11 +1,10 @@
 package com.kobot.framework.entitysystem.components.factory;
 
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
 import com.kobot.framework.entitysystem.components.PhysicsComponent;
 import com.kobot.framework.entitysystem.components.RendererComponent;
-import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
 import com.kobot.framework.objects.physics.Box;
 import com.kobot.framework.objects.physics.GameObject;
@@ -32,11 +31,11 @@ public abstract class EntityFactory {
     public Entity createDynamicSphere(float massInKilograms, float radiusInMeters, @NotNull Color color, @NotNull Vector3f position) {
         RendererComponent renderer = createSphereRenderer(radiusInMeters, color);
         Sphere sphere = new Sphere(massInKilograms, radiusInMeters, position, renderer.createMotionState());
-        PhysicsComponent simulator = new PhysicsComponent(sphere.getRigidBody());
+        PhysicsComponent physics = new PhysicsComponent(sphere.getRigidBody());
 
         Entity entity = entityManager.createEntity();
         entityManager.addComponentToEntity(renderer, entity);
-        entityManager.addComponentToEntity(simulator, entity);
+        entityManager.addComponentToEntity(physics, entity);
 
         return entity;
     }

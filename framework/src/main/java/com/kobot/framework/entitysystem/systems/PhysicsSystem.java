@@ -8,7 +8,7 @@ import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.DynamicsWorld;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.kobot.framework.entitysystem.components.PhysicsComponent;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +30,7 @@ public class PhysicsSystem extends System {
 
     protected DynamicsWorld createSimulation() {
         // collision configuration contains default setup for memory, collision
-        // setup. Advanced users can create their own configuration.
+        // setup. Advanced users can getById their own configuration.
         CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
 
         // use the default collision dispatcher. For parallel processing you
@@ -65,7 +65,8 @@ public class PhysicsSystem extends System {
 
     @Override
     public void update(float timestepInSecond) {
-        Collection<Entity> entities = entityManager.getAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
+        Set<Entity> entities = finder.findAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
+
         for (Entity entity : entities) {
             if (!simulatedEntities.contains(entity)) {
                 add(entity);
@@ -81,8 +82,10 @@ public class PhysicsSystem extends System {
     }
 
     private void remove(Entity entity) {
-        PhysicsComponent component = (PhysicsComponent) entityManager.getComponentForEntity(PhysicsComponent.class, entity);
-        simulation.removeRigidBody(component.body);
+        Set<PhysicsComponent> components = (Set) finder.getComponentsForEntity(PhysicsComponent.class, entity);
+        for (PhysicsComponent component : components) {
+            simulation.removeRigidBody(component.body);
+        }
         simulatedEntities.remove(entity);
     }
 
@@ -94,8 +97,11 @@ public class PhysicsSystem extends System {
     }
 
     private void add(Entity entity) {
-        PhysicsComponent component = (PhysicsComponent) entityManager.getComponentForEntity(PhysicsComponent.class, entity);
-        simulation.addRigidBody(component.body);
+        Set<PhysicsComponent> components = (Set)finder.getComponentsForEntity(PhysicsComponent.class, entity);
+        for (PhysicsComponent component : components) {
+            simulation.addRigidBody(component.body);
+        }
+
         simulatedEntities.add(entity);
     }
 }

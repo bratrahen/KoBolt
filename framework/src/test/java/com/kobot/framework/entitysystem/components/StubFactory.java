@@ -1,4 +1,4 @@
-package com.kobot.framework;
+package com.kobot.framework.entitysystem.components;
 
 import com.bulletphysics.collision.broadphase.AxisSweep3;
 import com.bulletphysics.collision.dispatch.CollisionConfiguration;

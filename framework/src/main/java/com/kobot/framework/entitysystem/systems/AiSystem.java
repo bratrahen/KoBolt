@@ -1,6 +1,6 @@
 package com.kobot.framework.entitysystem.systems;
 
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
 
 public class AiSystem extends System {

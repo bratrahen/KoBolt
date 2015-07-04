@@ -2,7 +2,7 @@ package com.kobot.framework.entitysystem.systems;
 
 import com.kobot.framework.controls.GhostControls;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
@@ -79,7 +79,7 @@ public class JpctRenderingSystem extends System {
     }
 
     private void refreshCollectionOfRenderableEntities() {
-        Collection<Entity> entities = entityManager.getAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
+        Collection<Entity> entities = finder.getAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
         for (Entity entity : entities) {
             if (!renderableEntities.contains(entity)) {
                 add(entity);
@@ -93,8 +93,10 @@ public class JpctRenderingSystem extends System {
     }
 
     private void add(Entity entity) {
-        JpctRendererComponent component = (JpctRendererComponent) entityManager.getComponentForEntity(JpctRendererComponent.class, entity);
-        world.addObject(component.object3D);
+        Set<JpctRendererComponent> components = (Set)finder.getComponentsForEntity(JpctRendererComponent.class, entity);
+        for (JpctRendererComponent component : components) {
+            world.addObject(component.object3D);
+        }
         renderableEntities.add(entity);
     }
 
@@ -106,8 +108,12 @@ public class JpctRenderingSystem extends System {
     }
 
     private void remove(Entity entity) {
-        JpctRendererComponent component = (JpctRendererComponent) entityManager.getComponentForEntity(JpctRendererComponent.class, entity);
-        world.removeObject(component.object3D);
+        Set<JpctRendererComponent> components = (Set) finder.getComponentsForEntity(JpctRendererComponent.class, entity);
+        for (JpctRendererComponent component : components) {
+            world.removeObject(component.object3D);
+        }
         renderableEntities.remove(entity);
     }
+
+
 }

@@ -26,7 +26,7 @@ public class Scene {
 
     protected DynamicsWorld createSimulation() {
         // collision configuration contains default setup for memory, collision
-        // setup. Advanced users can create their own configuration.
+        // setup. Advanced users can getById their own configuration.
         CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
 
         // use the default collision dispatcher. For parallel processing you

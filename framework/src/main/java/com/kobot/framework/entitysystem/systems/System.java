@@ -1,7 +1,7 @@
 package com.kobot.framework.entitysystem.systems;
 
-import com.kobot.framework.entitysystem.ComponentFinder;
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 
 public abstract class System {
     final protected EntityManager entityManager;

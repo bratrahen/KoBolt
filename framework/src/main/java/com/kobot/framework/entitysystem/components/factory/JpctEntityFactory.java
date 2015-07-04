@@ -1,6 +1,6 @@
 package com.kobot.framework.entitysystem.components.factory;
 
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.kobot.framework.entitysystem.components.RendererComponent;
 import com.kobot.framework.objects.physics.Box;

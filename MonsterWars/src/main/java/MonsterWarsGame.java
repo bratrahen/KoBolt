@@ -1,6 +1,6 @@
 import com.kobot.framework.Game;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.EntityManager;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.factory.EntityFactory;
 import com.kobot.framework.entitysystem.components.factory.JpctEntityFactory;
@@ -31,13 +31,13 @@ public class MonsterWarsGame extends Game {
 
         final long RED_TEAM = 1;
         Entity redCube = entityFactory.createStaticCubeWithGun(10, Color.RED, new Vector3f(-50, 0, 0));
-        entityManager.addComponentToEntity(new Team(RED_TEAM), redCube);
+        entityManager.addComponentToEntity(Team.getById(RED_TEAM), redCube);
 
         final long BLUE_TEAM = 2;
         Entity blueCube = entityFactory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(50, 50, 0));
-        entityManager.addComponentToEntity(new Team(BLUE_TEAM), blueCube);
+        entityManager.addComponentToEntity(Team.getById(BLUE_TEAM), blueCube);
         Entity blueSphere = entityFactory.createStaticCube(10, Color.CYAN, new Vector3f(50, 0, 0));
-        entityManager.addComponentToEntity(new Team(BLUE_TEAM), blueSphere);
+        entityManager.addComponentToEntity(Team.getById(BLUE_TEAM), blueSphere);
     }
 
     @Override
