@@ -12,15 +12,10 @@
         <module>framework</module>
         <module>BouncingBall</module>
         <module>MonsterWars</module>
+        <module>HelloWorlds</module>
     </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>net.jpct</groupId>
-            <artifactId>jpct</artifactId>
-            <version>1.29</version>
-        </dependency>
-
         <dependency>
             <groupId>org.lwjgl.lwjgl</groupId>
             <artifactId>lwjgl</artifactId>

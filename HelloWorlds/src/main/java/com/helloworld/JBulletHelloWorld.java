@@ -43,7 +43,7 @@ import javax.vecmath.Vector3f;
 
 /**
  * This is a Hello World program for running a basic Bullet physics simulation.
- * it is a direct translation of the C++ com.helloworld.JpctHelloWorld app.
+ * it is a direct translation of the C++ JpctHelloWorld app.
  *
  * @author cdorman
  */

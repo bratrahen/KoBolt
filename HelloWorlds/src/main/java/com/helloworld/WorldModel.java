@@ -11,7 +11,6 @@ import com.kobot.objects.GameObject;
 import javax.vecmath.Vector3f;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class WorldModel {
     WorldView worldView;
