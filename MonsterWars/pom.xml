@@ -11,5 +11,11 @@
 
     <artifactId>MonsterWars</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>bratrahen</groupId>
+            <artifactId>framework</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
