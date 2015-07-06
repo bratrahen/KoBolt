@@ -3,7 +3,9 @@ package com.kobot.framework.entitysystem.manager;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.api.Component;
+import com.kobot.framework.entitysystem.components.api.basic.Component;
+import com.kobot.framework.entitysystem.components.api.basic.SharedComponent;
+import com.kobot.framework.entitysystem.components.api.basic.UniqueComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -36,10 +38,51 @@ public class EntityManager {
     }
 
     public void addComponentToEntity(@NotNull Component component, @NotNull Entity entity) {
+        if (component instanceof Component) {
+            Set<Component> componentsForEntity = getComponentsForEntity(component.getClass(), entity);
+            if (componentsForEntity.contains(component)) {
+                String message = component.getClass().getSimpleName() + " "
+                        + component + " is already possessed by Entity " + entity
+                        + ". Same instance of component cannot be added twice to same Entity.";
+                throw new IllegalArgumentException(message);
+            }
+        }
 
+        if (component instanceof UniqueComponent) {
+            Set<Component> componentsForEntity = getComponentsForEntity(component.getClass(), entity);
+            if (componentsForEntity.isEmpty() == false) {
+                String message = component.getClass().getSimpleName() + " "
+                        + component + " is already possessed by Entity " + entity
+                        + ". Component of class " + component.getClass().getSimpleName()
+                        + " cannot be added twice to same Entity.";
+                throw new IllegalArgumentException(message);
+            }
+        }
+
+        if (!(component instanceof SharedComponent)) {
+            Set<Entity> entitiesForComponent = getEntitiesForComponent(component);
+            if (entitiesForComponent.isEmpty() == false) {
+                String message = component.getClass().getSimpleName() + " "
+                        + component + " is already possessed by Entity "
+                        + entitiesForComponent.iterator().next()
+                        + ". It cannot be shared with Entity " + entity;
+                throw new IllegalArgumentException(message);
+            }
+        }
+
+        if (component instanceof UniqueComponent) {
+            Set<Component> componentsForEntity = getComponentsForEntity(component.getClass(), entity);
+            if (componentsForEntity.contains(component)) {
+                String message = component.getClass().getSimpleName() + " "
+                        + component + " is already possessed by Entity " + entity
+                        + ". Component of class " + component.getClass().getSimpleName()
+                        + " cannot be added twice to same Entity.";
+                throw new IllegalArgumentException(message);
+            }
+        }
 
         Set<Class> allTypes = getGeneralizations(component.getClass());
-        for (Class  type : allTypes ){
+        for (Class type : allTypes) {
             BiMap<Long, Set<Component>> componentsByEntity = componentsByEntityByClass.get(type);
             if (componentsByEntity == null) {
                 componentsByEntity = HashBiMap.create();
@@ -47,7 +90,7 @@ public class EntityManager {
             }
 
             Set<Component> components = componentsByEntity.get(entity.getId());
-            if (components == null){
+            if (components == null) {
                 components = new HashSet<Component>();
                 componentsByEntity.put(entity.getId(), components);
             }
@@ -58,6 +101,7 @@ public class EntityManager {
     /**
      * Builds an <b>unordered</b> set of all interface and object classes that
      * are generalizations of the provided class.
+     *
      * @param classObject the class to find generalization of.
      * @return a Set of class objects.
      * @author http://www.java2s.com/Tutorial/Java/0125__Reflection/GetSuperInterfaces.htm
@@ -83,7 +127,16 @@ public class EntityManager {
     }
 
     Set<Component> getComponentsForEntity(@NotNull Class clazz, @NotNull Entity entity) {
-        return componentsByEntityByClass.get(clazz).get(entity.getId());
+        BiMap<Long, Set<Component>> componentsByEntity = componentsByEntityByClass.get(clazz);
+        if (componentsByEntity == null) {
+            return new HashSet<Component>();
+        }
+        Set<Component> components = componentsByEntity.get(entity.getId());
+        if (components != null) {
+            return components;
+        } else {
+            return new HashSet<Component>();
+        }
     }
 
     Set<Entity> getAllEntitiesPossessingComponentOfClass(Class clazz) {
@@ -104,7 +157,7 @@ public class EntityManager {
             Set<Set<Component>> componentsPerEntity = componentsByEntityByClass.get(clazz).values();
 
             HashSet<Component> result = new HashSet<Component>();
-            for (Set<Component> components : componentsPerEntity){
+            for (Set<Component> components : componentsPerEntity) {
                 result.addAll(components);
             }
 
@@ -118,9 +171,14 @@ public class EntityManager {
         Set<Entity> result = new HashSet<Entity>();
 
         BiMap<Long, Set<Component>> componentsByEntity = componentsByEntityByClass.get(component.getClass());
+
+        if (componentsByEntity == null) {
+            return new HashSet<Entity>();
+        }
+
         for (Long id : componentsByEntity.keySet()) {
             Set<Component> components = componentsByEntity.get(id);
-            if (components.contains(component)){
+            if (components.contains(component)) {
                 result.add(new Entity(id));
             }
         }

@@ -23,25 +23,21 @@ public class MotherShipAi implements AiComponent {
 
     public void update(float timestepInSeconds) {
         Entity myEntity = finder.findEntitiesForComponent(this).iterator().next();
-        Set<Team> myTeams = finder.findTeam(myEntity);
-        Set<RangedWeapon> myGuns = finder.findRangedWeapons(myEntity);
+        Set<Entity> enemies = finder.findEnemies(myEntity);
 
+        if (enemies.isEmpty()){
+            return;
+        }
+
+        Set<RangedWeapon> myGuns = finder.findRangedWeapons(myEntity);
         for (RangedWeapon gun : myGuns){
             gun.reduceCooldown(timestepInSeconds);
             if (!gun.canFire()){
                 return;
             }
             PhysicsComponent myBody = finder.findSinglePhysicalBody(myEntity);
-
-            Collection<Entity> friendsAndFoes = finder.getAllEntitiesPossessingComponentOfClass(Team.class);
-            for (Entity friendOrFoe : friendsAndFoes) {
-                Set<Team> hisTeams = finder.findTeam(friendOrFoe);
-                boolean isEnemy = Collections.disjoint(myTeams, hisTeams);
-                if (isEnemy) {
-                    PhysicsComponent enemyBody = finder.findSinglePhysicalBody(friendOrFoe);
-                    gun.fireAt(myBody.getPosition(), enemyBody.getPosition());
-                }
-            }
+            PhysicsComponent enemyBody = finder.findSinglePhysicalBody(enemies.iterator().next());
+            gun.fireAt(myBody.getPosition(), enemyBody.getPosition());
         }
     }
 }

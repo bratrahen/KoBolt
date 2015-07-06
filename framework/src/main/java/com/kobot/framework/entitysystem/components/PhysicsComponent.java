@@ -3,8 +3,7 @@ package com.kobot.framework.entitysystem.components;
 
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.Transform;
-import com.kobot.framework.entitysystem.components.api.Component;
-import com.kobot.framework.entitysystem.components.api.UniqueComponent;
+import com.kobot.framework.entitysystem.components.api.basic.UniqueComponent;
 
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;

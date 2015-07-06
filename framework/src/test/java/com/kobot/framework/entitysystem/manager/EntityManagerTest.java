@@ -1,9 +1,9 @@
 package com.kobot.framework.entitysystem.manager;
 
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.api.Component;
-import com.kobot.framework.entitysystem.components.ComponentStub;
-import com.kobot.framework.entitysystem.components.SubComponentStub;
+import com.kobot.framework.entitysystem.components.StubComponent;
+import com.kobot.framework.entitysystem.components.StubSubComponent;
+import com.kobot.framework.entitysystem.components.api.basic.Component;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +12,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class EntityManagerTest {
 
@@ -24,84 +23,68 @@ public class EntityManagerTest {
     }
 
     @Test
-    public void EntityManager_AddTwiceSameInstanceToDifferentEntities_AddedToBothEntities() {
-        ComponentStub component = new ComponentStub();
-        Entity entity1 = new Entity(1);
-        Entity entity2 = new Entity(2);
-
-        manager.addComponentToEntity(component, entity1);
-        manager.addComponentToEntity(component, entity2);
-
-        Collection<Component> all = manager.getAllComponentsOfClass(ComponentStub.class);
-        assertEquals(1, all.size());
-        assertTrue(all.contains(component));
-
-        Collection<Component> components1 = manager.getComponentsForEntity(ComponentStub.class, entity1);
-        assertEquals(1, components1.size());
-        assertTrue(components1.contains(component));
-
-        Collection<Component> components2 = manager.getComponentsForEntity(ComponentStub.class, entity2);
-        assertEquals(1, components2.size());
-        assertTrue(components2.contains(component));
+    public void getEntitiesForComponent_ForComponentThatWasNotAdded_EmptySet() {
+        Set<Entity> entities = manager.getEntitiesForComponent(new StubComponent());
+        assertTrue(entities.isEmpty());
     }
 
     @Test
-    public void EntityManager_AddTwiceSameInstanceToSameEntity_AddedOnce() {
-        ComponentStub ComponentStub = new ComponentStub();
-        Entity entity = new Entity(1);
+    public void getComponentsForEntity_ForComponentClassThatWasNotAdded_EmptySet() {
+        Set<Component> components = manager.getComponentsForEntity(StubComponent.class, new Entity(1));
+        assertTrue(components.isEmpty());
+    }
 
-        manager.addComponentToEntity(ComponentStub, entity);
-        manager.addComponentToEntity(ComponentStub, entity);
-
-        Collection<Component> all = manager.getAllComponentsOfClass(ComponentStub.class);
-        assertEquals(1, all.size());
-        assertTrue(all.contains(ComponentStub));
+    @Test
+    public void getComponentsForEntity_ForComponentThatWasAddedAndEntityThatWasNotAdded_EmptySet() {
+        manager.addComponentToEntity(new StubComponent(), new Entity(1));
+        Set<Component> components = manager.getComponentsForEntity(StubComponent.class, new Entity(2));
+        assertTrue(components.isEmpty());
     }
 
     @Test
     public void EntityManager_AddTwiceSameComponentStubIdToDifferentEntities_ComponentsAddedToManager() {
-        ComponentStub ComponentStub1_instance1 = new ComponentStub();
-        ComponentStub ComponentStub1_instance2 = new ComponentStub();
+        StubComponent stubComponent1_instance1 = new StubComponent();
+        StubComponent stubComponent1_instance2 = new StubComponent();
 
-        manager.addComponentToEntity(ComponentStub1_instance1, new Entity(1));
-        manager.addComponentToEntity(ComponentStub1_instance2, new Entity(2));
+        manager.addComponentToEntity(stubComponent1_instance1, new Entity(1));
+        manager.addComponentToEntity(stubComponent1_instance2, new Entity(2));
 
-        Collection<Component> all = manager.getAllComponentsOfClass(ComponentStub.class);
+        Collection<Component> all = manager.getAllComponentsOfClass(StubComponent.class);
         assertEquals(2, all.size());
-        assertTrue(all.contains(ComponentStub1_instance1));
-        assertTrue(all.contains(ComponentStub1_instance2));
+        assertTrue(all.contains(stubComponent1_instance1));
+        assertTrue(all.contains(stubComponent1_instance2));
     }
 
     @Test
     public void EntityManager_AddTwiceDifferentComponentStubIdToSameEntity_ComponentsAddedToManager() {
-        ComponentStub ComponentStub1_instance1 = new ComponentStub();
-        ComponentStub ComponentStub1_instance2 = new ComponentStub();
+        StubComponent stubComponent1_instance1 = new StubComponent();
+        StubComponent stubComponent1_instance2 = new StubComponent();
         Entity entity = new Entity(1);
 
-        manager.addComponentToEntity(ComponentStub1_instance1, entity);
-        manager.addComponentToEntity(ComponentStub1_instance2, entity);
+        manager.addComponentToEntity(stubComponent1_instance1, entity);
+        manager.addComponentToEntity(stubComponent1_instance2, entity);
 
-        Collection<Component> all = manager.getAllComponentsOfClass(ComponentStub.class);
+        Collection<Component> all = manager.getAllComponentsOfClass(StubComponent.class);
         assertEquals(2, all.size());
-        assertTrue(all.contains(ComponentStub1_instance1));
-        assertTrue(all.contains(ComponentStub1_instance2));
+        assertTrue(all.contains(stubComponent1_instance1));
+        assertTrue(all.contains(stubComponent1_instance2));
     }
 
     @Test
     public void EntityManager_PutSubclassGetSuperclass() {
-        SubComponentStub subInstance = new SubComponentStub();
+        StubSubComponent subInstance = new StubSubComponent();
         Entity entity = new Entity(1);
 
         manager.addComponentToEntity(subInstance, entity);
 
-        Collection<Component> all = manager.getAllComponentsOfClass(ComponentStub.class);
+        Collection<Component> all = manager.getAllComponentsOfClass(StubComponent.class);
         assertEquals(1, all.size());
         assertTrue(all.contains(subInstance));
     }
 
     @Test
-    public void getEntityForComponent(){
-        ComponentStub component = new ComponentStub();
+    public void getEntityForComponent() {
+        StubComponent component = new StubComponent();
         Entity entity = new Entity(1);
 
         manager.addComponentToEntity(component, entity);

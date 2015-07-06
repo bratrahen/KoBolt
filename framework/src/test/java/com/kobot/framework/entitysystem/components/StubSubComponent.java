@@ -1,4 +1,4 @@
 package com.kobot.framework.entitysystem.components;
 
-public class SubComponentStub extends ComponentStub {
+public class StubSubComponent extends StubComponent {
 }

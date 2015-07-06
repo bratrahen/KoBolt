@@ -17,9 +17,6 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by rahen on 2015-07-04.
- */
 public class ComponentFinderTest {
 
     private EntityManager entityManager;
@@ -32,28 +29,29 @@ public class ComponentFinderTest {
     }
 
     @Test
+    public void findEnemies(){
+        entityManager.addComponentToEntity(Team.getById(1), new Entity(1));
+        entityManager.addComponentToEntity(Team.getById(1), new Entity(2));
+        entityManager.addComponentToEntity(Team.getById(2), new Entity(3));
+
+        finder.findEnemies(new Entity(1));
+    }
+
+    @Test
     public void testFindTeam() throws Exception {
         Entity entity1 = new Entity(1);
+        Team team1 = Team.getById(1);
+        entityManager.addComponentToEntity(team1, entity1);
+
         Entity entity2 = new Entity(2);
-        Team team11 = Team.getById(1);
-        Team team12 = Team.getById(2);
-        entityManager.addComponentToEntity(team11, entity1);
-        entityManager.addComponentToEntity(team12, entity1);
+        Team team2 = Team.getById(2);
+        entityManager.addComponentToEntity(team2, entity2);
 
-        Team team21 = Team.getById(3);
-        Team team22 = Team.getById(4);
-        entityManager.addComponentToEntity(team21, entity2);
-        entityManager.addComponentToEntity(team22, entity2);
+        Team actualTeam1 = finder.findTeam(entity1);
+        assertSame(team1, actualTeam1);
 
-        Set<Team> teams1 = finder.findTeam(entity1);
-        assertEquals(2, teams1.size());
-        assertTrue(teams1.contains(team11));
-        assertTrue(teams1.contains(team12));
-
-        Set<Team> teams2 = finder.findTeam(entity2);
-        assertEquals(2, teams2.size());
-        assertTrue(teams2.contains(team21));
-        assertTrue(teams2.contains(team22));
+        Team actualTeam2 = finder.findTeam(entity2);
+        assertSame(team2, actualTeam2);
     }
 
     @Test
@@ -102,11 +100,14 @@ public class ComponentFinderTest {
     public void testFindAllMotherShipsAi() throws Exception {
         StubEntityFactory factory = new StubEntityFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
+        Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
+
+
         MotherShipAi ai_1 = new MotherShipAi(entityManager);
         MotherShipAi ai_2 = new MotherShipAi(entityManager);
 
         entityManager.addComponentToEntity(ai_1, redSphere);
-        entityManager.addComponentToEntity(ai_2, redSphere);
+        entityManager.addComponentToEntity(ai_2, blueSphere);
 
         Collection<MotherShipAi> shipAis = finder.findAllMotherShipsAi();
         assertEquals(2, shipAis.size());
