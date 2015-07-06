@@ -22,9 +22,15 @@ public class PhysicsSystem extends System {
 
     Set<Entity> simulatedEntities = new HashSet<Entity>();
     private DynamicsWorld simulation;
+    public final float gravity;
 
     public PhysicsSystem(EntityManager entityManager) {
-        super(entityManager);
+        this(entityManager, 10.0f);
+    }
+
+    public PhysicsSystem(EntityManager manager, float gravity) {
+        super(manager);
+        this.gravity = gravity;
         this.simulation = createSimulation();
     }
 
@@ -58,7 +64,7 @@ public class PhysicsSystem extends System {
                 dispatcher, overlappingPairCache, solver,
                 collisionConfiguration);
 
-        result.setGravity(new Vector3f(0, -10, 0));
+        result.setGravity(new Vector3f(0, -gravity, 0));
 
         return result;
     }
