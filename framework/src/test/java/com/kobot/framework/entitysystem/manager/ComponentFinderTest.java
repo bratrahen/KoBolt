@@ -55,32 +55,15 @@ public class ComponentFinderTest {
     }
 
     @Test
-    public void testFindPhysicalBody() throws Exception {
-        StubEntityFactory factory = new StubEntityFactory(entityManager);
-        Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
-        Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
-
-        Set<PhysicsComponent> bodiesOfRed = finder.findPhysicalBodies(redSphere);
-        assertEquals(1, bodiesOfRed.size());
-        PhysicsComponent redBody = (PhysicsComponent) bodiesOfRed.toArray()[0];
-        assertEquals(new Vector3f(0, 0, 0), redBody.getPosition());
-
-        Set<PhysicsComponent> bodiesOfBlue = finder.findPhysicalBodies(blueSphere);
-        assertEquals(1, bodiesOfBlue.size());
-        PhysicsComponent blueBody = (PhysicsComponent) bodiesOfBlue.toArray()[0];
-        assertEquals(new Vector3f(10, 0, 0), blueBody.getPosition());
-    }
-
-    @Test
     public void testFindSinglePhysicalBody() throws Exception {
         StubEntityFactory factory = new StubEntityFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
-        PhysicsComponent redBody = finder.findSinglePhysicalBody(redSphere);
+        PhysicsComponent redBody = finder.findPhysicalBody(redSphere);
         assertTrue(redBody.getPosition().equals(new Vector3f(0, 0, 0)));
 
-        PhysicsComponent blueBody = finder.findSinglePhysicalBody(blueSphere);
+        PhysicsComponent blueBody = finder.findPhysicalBody(blueSphere);
         assertTrue(blueBody.getPosition().equals(new Vector3f(10, 0, 0)));
     }
 

@@ -5,10 +5,10 @@ import com.kobot.framework.entitysystem.components.*;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
 import com.kobot.framework.entitysystem.components.api.basic.Component;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
+import com.kobot.framework.entitysystem.components.api.basic.SharedComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,12 +38,7 @@ public class ComponentFinder {
     }
 
     @NotNull
-    public Set<PhysicsComponent> findPhysicalBodies(Entity entity) {
-        return find(PhysicsComponent.class, entity);
-    }
-
-    @NotNull
-    public PhysicsComponent findSinglePhysicalBody(Entity entity) {
+    public PhysicsComponent findPhysicalBody(Entity entity) {
         return (PhysicsComponent) findFirst(PhysicsComponent.class, entity);
     }
 
@@ -62,20 +57,22 @@ public class ComponentFinder {
         return find(RendererComponent.class, entity);
     }
 
+    @NotNull
+    public RendererComponent findRenderer(Entity entity) {
+        return (RendererComponent)findFirst(RendererComponent.class, entity);
+    }
+
     public Set<Entity> findAllEntitiesPossessingComponentOfClass(Class clazz) {
         return entityManager.getAllEntitiesPossessingComponentOfClass(clazz);
     }
 
-    public Set<Entity> findEntitiesForComponent(Component component) {
-        return entityManager.getEntitiesForComponent(component);
+    @NotNull
+    public Entity findEntityForComponent(Component component) {
+        return entityManager.getEntitiesForComponent(component).iterator().next();
     }
 
     public Set<Entity> getAllEntitiesPossessingComponentOfClass(Class clazz) {
         return entityManager.getAllEntitiesPossessingComponentOfClass(clazz);
-    }
-
-    public Set<Component> getComponentsForEntity(Class clazz, Entity entity){
-        return entityManager.getComponentsForEntity(clazz, entity);
     }
 
     public Set<Entity> findEnemies(Entity entity) {
@@ -91,5 +88,13 @@ public class ComponentFinder {
         }
 
         return  enemies;
+    }
+
+    public Set<MaxLifeSpan> findAllMaxLifeSpans() {
+        return findAll(MaxLifeSpan.class);
+    }
+
+    public Set<Entity> findAllDisposed() {
+        return entityManager.getAllEntitiesPossessingComponentOfClass(Dispose.class);
     }
 }

@@ -86,32 +86,20 @@ public class JpctRenderingSystem extends System {
             }
         }
 
-        HashSet<Entity> entitiesToBeRemoved = getEntitiesNoLongerRendered(entities);
-        for (Entity entity : entitiesToBeRemoved) {
+        for (Entity entity : finder.findAllDisposed()) {
             remove(entity);
         }
     }
 
     private void add(Entity entity) {
-        Set<JpctRendererComponent> components = (Set)finder.getComponentsForEntity(JpctRendererComponent.class, entity);
-        for (JpctRendererComponent component : components) {
-            world.addObject(component.object3D);
-        }
+        JpctRendererComponent component = (JpctRendererComponent)finder.findRenderer(entity);
+        world.addObject(component.object3D);
         renderableEntities.add(entity);
     }
 
-    @NotNull
-    private HashSet<Entity> getEntitiesNoLongerRendered(Collection<Entity> entities) {
-        HashSet<Entity> result = new HashSet<Entity>(renderableEntities);
-        result.removeAll(entities);
-        return result;
-    }
-
     private void remove(Entity entity) {
-        Set<JpctRendererComponent> components = (Set) finder.getComponentsForEntity(JpctRendererComponent.class, entity);
-        for (JpctRendererComponent component : components) {
-            world.removeObject(component.object3D);
-        }
+        JpctRendererComponent component = (JpctRendererComponent)finder.findRenderer(entity);
+        world.removeObject(component.object3D);
         renderableEntities.remove(entity);
     }
 

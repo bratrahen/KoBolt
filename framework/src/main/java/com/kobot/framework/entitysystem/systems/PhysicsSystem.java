@@ -73,8 +73,7 @@ public class PhysicsSystem extends System {
             }
         }
 
-        HashSet<Entity> entitiesToBeRemoved = getEntitiesNoLongerSimulated(entities);
-        for (Entity entity : entitiesToBeRemoved) {
+        for (Entity entity : finder.findAllDisposed()) {
             remove(entity);
         }
 
@@ -82,26 +81,14 @@ public class PhysicsSystem extends System {
     }
 
     private void remove(Entity entity) {
-        Set<PhysicsComponent> components = (Set) finder.getComponentsForEntity(PhysicsComponent.class, entity);
-        for (PhysicsComponent component : components) {
-            simulation.removeRigidBody(component.body);
-        }
+        PhysicsComponent component = finder.findPhysicalBody(entity);
+        simulation.removeRigidBody(component.body);
         simulatedEntities.remove(entity);
     }
 
-    @NotNull
-    private HashSet<Entity> getEntitiesNoLongerSimulated(Collection<Entity> entities) {
-        HashSet<Entity> result = new HashSet<Entity>(simulatedEntities);
-        result.removeAll(entities);
-        return result;
-    }
-
     private void add(Entity entity) {
-        Set<PhysicsComponent> components = (Set)finder.getComponentsForEntity(PhysicsComponent.class, entity);
-        for (PhysicsComponent component : components) {
-            simulation.addRigidBody(component.body);
-        }
-
+        PhysicsComponent component = finder.findPhysicalBody(entity);
+        simulation.addRigidBody(component.body);
         simulatedEntities.add(entity);
     }
 }

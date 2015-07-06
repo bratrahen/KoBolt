@@ -4,18 +4,17 @@ import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.factory.EntityFactory;
 import com.kobot.framework.entitysystem.components.factory.JpctEntityFactory;
-import com.kobot.framework.entitysystem.systems.AiSystem;
-import com.kobot.framework.entitysystem.systems.JpctRenderingSystem;
-import com.kobot.framework.entitysystem.systems.PhysicsSystem;
+import com.kobot.framework.entitysystem.systems.*;
+import com.kobot.framework.entitysystem.systems.System;
 
 import javax.vecmath.Vector3f;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MonsterWarsGame extends Game {
-    private final PhysicsSystem physicsSystem;
     private final JpctRenderingSystem renderingSystem;
-    private final AiSystem aiSystem;
-    private final EntityFactory entityFactory;
+    private final Set<System> systems = new HashSet<System>();
 
     public static void main(String[] args) {
         MonsterWarsGame game = new MonsterWarsGame();
@@ -24,11 +23,15 @@ public class MonsterWarsGame extends Game {
 
     public MonsterWarsGame() {
         EntityManager entityManager = new EntityManager();
-        physicsSystem = new PhysicsSystem(entityManager);
-        renderingSystem = new JpctRenderingSystem(entityManager);
-        aiSystem = new AiSystem(entityManager);
-        entityFactory = new JpctEntityFactory(entityManager);
 
+        renderingSystem = new JpctRenderingSystem(entityManager);
+
+        systems.add(new MaxLifeSpanSystem(entityManager));
+        systems.add(new AiSystem(entityManager));
+        systems.add(new PhysicsSystem(entityManager));
+        systems.add(new DisposeSystem(entityManager));
+
+        EntityFactory entityFactory = new JpctEntityFactory(entityManager);
         final long RED_TEAM = 1;
         Entity redCube = entityFactory.createStaticCubeWithGun(10, Color.RED, new Vector3f(-50, 0, 0));
         entityManager.addComponentToEntity(Team.getById(RED_TEAM), redCube);
@@ -47,8 +50,9 @@ public class MonsterWarsGame extends Game {
 
     @Override
     protected void simulate(float timestepInSeconds) {
-        aiSystem.update(timestepInSeconds);
-        physicsSystem.update(timestepInSeconds);
+        for (System system : systems) {
+            system.update(timestepInSeconds);
+        }
     }
 
     @Override

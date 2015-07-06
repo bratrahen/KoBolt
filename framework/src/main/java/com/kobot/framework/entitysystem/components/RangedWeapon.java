@@ -7,7 +7,6 @@ import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import org.jetbrains.annotations.NotNull;
 
 import javax.vecmath.Vector3f;
-import java.awt.*;
 
 public class RangedWeapon implements Component {
     public final float damage;
@@ -34,14 +33,16 @@ public class RangedWeapon implements Component {
             return;
         }
 
-        Entity projectile = factory.createDynamicSphere(10, 1, Color.ORANGE, start);
-        PhysicsComponent physics = new ComponentFinder(factory.entityManager).findSinglePhysicalBody(projectile);
+        Entity projectile = factory.createCannonBall(start);
+        PhysicsComponent physics = new ComponentFinder(factory.entityManager).findPhysicalBody(projectile);
         Vector3f forceVector = new Vector3f(direction);
         forceVector.scale(forceInNewtons);
         physics.body.applyCentralImpulse(forceVector);
 
         cooldownInSeconds = reloadInSeconds;
     }
+
+
 
     public boolean canFire() {
         return cooldownInSeconds <= 0;

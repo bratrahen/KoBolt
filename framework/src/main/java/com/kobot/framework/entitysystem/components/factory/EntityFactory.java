@@ -1,6 +1,7 @@
 package com.kobot.framework.entitysystem.components.factory;
 
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.components.MaxLifeSpan;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
 import com.kobot.framework.entitysystem.components.PhysicsComponent;
@@ -72,4 +73,10 @@ public abstract class EntityFactory {
 
     @NotNull
     protected abstract RendererComponent createCubeRenderer(float sideInMeters, @NotNull Color color);
+
+    public Entity createCannonBall(Vector3f start) {
+        Entity cannonBall = createDynamicSphere(10, 1, Color.LIGHT_GRAY, start);
+        entityManager.addComponentToEntity(new MaxLifeSpan(1.0f), cannonBall);
+        return cannonBall;
+    }
 }
