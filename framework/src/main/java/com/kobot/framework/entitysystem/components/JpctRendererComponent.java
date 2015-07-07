@@ -5,7 +5,6 @@ import com.bulletphysics.linearmath.MotionState;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.factory.CollisionShapeFactory;
 import com.kobot.framework.objects.graphic.jpct.JpctMotionState;
-import com.kobot.framework.objects.physics.Box;
 import com.threed.jpct.Object3D;
 
 import javax.vecmath.Vector3f;

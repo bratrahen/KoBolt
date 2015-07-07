@@ -27,7 +27,7 @@ public class JetEngine implements UniqueComponent {
 
     public void applyForce() {
         Entity entity = finder.findEntityForComponent(this);
-        Body body = finder.findPhysicalBody(entity);
+        Body body = finder.findPhysicalObject(entity);
 
         Vector3f force = new Vector3f();
         QuaternionUtil.quatRotate(body.getRotation(), maxThrustForce, force);

@@ -1,6 +1,5 @@
 package com.kobot.framework.entitysystem.components.api;
 
-import com.bulletphysics.dynamics.DynamicsWorld;
 import com.kobot.framework.entitysystem.components.api.basic.UniqueComponent;
 
 import javax.vecmath.Quat4f;
@@ -16,11 +15,5 @@ public interface Body extends UniqueComponent {
 
     Vector3f getPosition();
 
-    void setPosition(Vector3f position);
-
     Quat4f getRotation();
-
-    void addToSimulation(DynamicsWorld simulation);
-
-    void removeFromSimulation(DynamicsWorld simulation);
 }

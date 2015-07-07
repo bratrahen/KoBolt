@@ -35,7 +35,7 @@ public class RangedWeapon implements Component {
         }
 
         Entity projectile = factory.createCannonBall(start);
-        Body body = new ComponentFinder(factory.entityManager).findPhysicalBody(projectile);
+        Body body = new ComponentFinder(factory.entityManager).findPhysicalObject(projectile);
         Vector3f forceVector = new Vector3f(direction);
         forceVector.scale(forceInNewtons);
         body.applyCentralImpulse(forceVector);

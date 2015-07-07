@@ -1,8 +1,5 @@
 import com.bulletphysics.collision.shapes.CollisionShape;
-import com.bulletphysics.dynamics.RigidBody;
-import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
-import com.bulletphysics.linearmath.MotionState;
-import com.bulletphysics.linearmath.Transform;
+
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.JetEngine;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
@@ -10,17 +7,18 @@ import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
-import com.kobot.framework.entitysystem.components.body.PrimitiveBody;
 import com.kobot.framework.entitysystem.components.factory.PrimitivesFactory;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
+import com.kobot.framework.simulation.PhysicalObject;
+import com.kobot.framework.simulation.PhysicalObjectBuilder;
 import org.jetbrains.annotations.NotNull;
 
-import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
 import java.awt.*;
 
 public abstract class ShipFactory extends PrimitivesFactory {
+    private static final float PI = (float)Math.PI;
     private static final float BOMBER_MASS_IN_KG = 10;
     private static final float CARRIER_MASS_IN_KG = 10000;
     private static final float FRIGATE_MASS_IN_KG = 1000;
@@ -89,43 +87,29 @@ public abstract class ShipFactory extends PrimitivesFactory {
         return ship;
     }
 
-    private Entity createShip(float massInKilograms, Vector3f position, Vector3f orientation, RendererComponent renderer) {
-        CollisionShape boundingBox = renderer.getBoundingBox();
-        MotionState motionState = renderer.createMotionState();
 
-        final float PI = (float)Math.PI;
-        Transform transform = new Transform();
-        transform.setIdentity();
-        transform.origin.set(position);
+    /**
+     * @param mass measured in kilograms [kg]
+     * @param position world coordinated [x, y, z] measured in meters [m]
+     * @param orientation counterclockwise rotation [rotX, rotY, rotZ] around world axises measured in radians [rad]
+     * @param renderer ship's renderer
+     * @return Entity
+     */
+    private Entity createShip(float mass, Vector3f position, Vector3f orientation, RendererComponent renderer) {
+        Vector3f defaultOrientation = new Vector3f(0, PI, -PI/2f);
+        Vector3f sumOrientation = new Vector3f(defaultOrientation);
+        sumOrientation.add(orientation);
 
-        Matrix3f Rx = new Matrix3f();
-        Rx.setIdentity();
-        Rx.rotX(orientation.x);
+        PhysicalObjectBuilder builder = new PhysicalObjectBuilder();
+        builder.setShape(renderer.getBoundingBox());
+        builder.setMass(mass).setPosition(position).setOrientation(sumOrientation);
+        PhysicalObject physicalObject = builder.build(renderer.createMotionState());
 
-        Matrix3f Ry = new Matrix3f();
-        Ry.setIdentity();
-        Ry.rotY(PI + orientation.y);
+        Entity entity = entityManager.createEntity();
+        entityManager.addComponentToEntity(physicalObject, entity);
+        entityManager.addComponentToEntity(renderer, entity);
 
-        Matrix3f Rz = new Matrix3f();
-        Rz.setIdentity();
-        Rz.rotZ(-PI/2 + orientation.z);
-
-        Matrix3f Rxyz = new Matrix3f();
-        Rxyz.setIdentity();
-        Rxyz.mul(Rx, Ry);
-        Rxyz.mul(Rxyz, Rz);
-        transform.basis.set(Rxyz);
-
-        motionState.setWorldTransform(transform);
-
-        Vector3f localInertia = calculateInertia(boundingBox, massInKilograms);
-        RigidBodyConstructionInfo rbInfo = new RigidBodyConstructionInfo(massInKilograms, motionState, boundingBox, localInertia);
-        rbInfo.restitution = 0.0f;
-        rbInfo.linearDamping = 0.0f;
-        rbInfo.angularDamping = 0.0f;
-        Body body = new PrimitiveBody(new RigidBody(rbInfo));
-
-        return createEntity(body, renderer);
+        return entity;
     }
 
     @NotNull

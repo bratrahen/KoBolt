@@ -60,10 +60,10 @@ public class ComponentFinderTest {
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
-        Body redBody = finder.findPhysicalBody(redSphere);
+        Body redBody = finder.findPhysicalObject(redSphere);
         assertTrue(redBody.getPosition().equals(new Vector3f(0, 0, 0)));
 
-        Body blueBody = finder.findPhysicalBody(blueSphere);
+        Body blueBody = finder.findPhysicalObject(blueSphere);
         assertTrue(blueBody.getPosition().equals(new Vector3f(10, 0, 0)));
     }
 

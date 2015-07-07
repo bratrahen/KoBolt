@@ -32,7 +32,7 @@ public class MotherShipAi implements AiComponent {
                 continue;
             }
 
-            Body enemyBody = finder.findPhysicalBody(target);
+            Body enemyBody = finder.findPhysicalObject(target);
             Vector3f start = getBody().getPosition();
             start.add(new Vector3f(0, 10 , 0));
             gun.fireAt(start, enemyBody.getPosition());
@@ -41,7 +41,7 @@ public class MotherShipAi implements AiComponent {
 
     @NotNull
     private Body getBody() {
-        return finder.findPhysicalBody(getEntity());
+        return finder.findPhysicalObject(getEntity());
     }
 
     @NotNull

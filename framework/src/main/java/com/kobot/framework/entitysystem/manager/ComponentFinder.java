@@ -7,9 +7,10 @@ import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.Component;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.api.modifiers.Timeable;
-import com.kobot.framework.entitysystem.components.body.PrimitiveBody;
+import com.kobot.framework.simulation.PhysicalObject;
 import org.jetbrains.annotations.NotNull;
 
+import javax.media.j3d.PhysicalBody;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,8 +41,8 @@ public class ComponentFinder {
     }
 
     @NotNull
-    public Body findPhysicalBody(Entity entity) {
-        return (Body) findFirst(PrimitiveBody.class, entity);
+    public PhysicalObject findPhysicalObject(Entity entity) {
+        return (PhysicalObject) findFirst(PhysicalObject.class, entity);
     }
 
     @NotNull

@@ -47,7 +47,7 @@ public class JetEngineTest {
             simulation.update(dt);
         }
 
-        Body body = finder.findPhysicalBody(sphere);
+        Body body = finder.findPhysicalObject(sphere);
         assertEquals(new Vector3f(50, 50, 0), body.getPosition());
     }
 }

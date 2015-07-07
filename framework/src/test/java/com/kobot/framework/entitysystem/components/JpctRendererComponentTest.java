@@ -24,16 +24,11 @@ public class JpctRendererComponentTest {
     final float sizeY = 60;
     final float sizeZ = 10;
 
-    private World world_view;
-    private DynamicsWorld world_model;
     private Object3D box_view;
 
     @Before
     public void setUp() throws Exception {
         JpctRenderingSystem.configJpct();
-        world_view = new World();
-        world_model = PhysicsSystem.createSimulation(10);
-
 
         float baseHalfExtend = sizeX / 2.0f;
         float heightBaseRatio = sizeY / sizeX;

@@ -3,8 +3,6 @@ package com.kobot.framework.entitysystem.components.factory;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.manager.EntityManager;
-import com.kobot.framework.objects.physics.Box;
-import com.kobot.framework.objects.physics.Sphere;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.Primitives;
 import com.threed.jpct.Texture;
@@ -22,7 +20,7 @@ public class JpctPrimitivesFactory extends PrimitivesFactory {
     @Override
     protected RendererComponent createSphereRenderer(float radiusInMeters, Color color) {
         Object3D object3d = Primitives.getSphere(radiusInMeters);
-        object3d.setName(Sphere.class.getSimpleName() + "@" + object3d.getID());
+        object3d.setName("Sphere@" + object3d.getID());
         applyColorTexture(object3d, color);
         return new JpctRendererComponent(object3d);
     }
@@ -41,7 +39,7 @@ public class JpctPrimitivesFactory extends PrimitivesFactory {
     protected RendererComponent createCubeRenderer(float sideInMeters, @NotNull Color color) {
         float halfExtend = sideInMeters / 2.0f;
         Object3D object3d = Primitives.getCube(halfExtend);
-        object3d.setName(Box.class.getSimpleName() + "@" + object3d.getID());
+        object3d.setName("Box@" + object3d.getID());
         applyColorTexture(object3d, color);
 
         return new JpctRendererComponent(object3d);
