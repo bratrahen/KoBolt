@@ -31,7 +31,7 @@ public class PhysicalObjectBuilder {
      * @return
      */
     public PhysicalObjectBuilder setPosition(Vector3f position) {
-        this.position = position;
+        this.position = new Vector3f(position);
         return this;
     }
 
@@ -41,7 +41,7 @@ public class PhysicalObjectBuilder {
      * @return
      */
     public PhysicalObjectBuilder setOrientation(Vector3f orientation) {
-        this.orientation = orientation;
+        this.orientation = new Vector3f(orientation);
         return this;
     }
 
