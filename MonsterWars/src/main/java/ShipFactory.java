@@ -20,12 +20,12 @@ import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
 import java.awt.*;
 
-public abstract class MonstersFactory extends PrimitivesFactory {
+public abstract class ShipFactory extends PrimitivesFactory {
     private static final float BOMBER_MASS_IN_KG = 10;
     private static final float CARRIER_MASS_IN_KG = 10000;
     private static final float FRIGATE_MASS_IN_KG = 1000;
 
-    public MonstersFactory(EntityManager entityManager) {
+    public ShipFactory(EntityManager entityManager) {
         super(entityManager);
     }
 
@@ -51,7 +51,7 @@ public abstract class MonstersFactory extends PrimitivesFactory {
         return createAttackBomber(position, orientation, teamId, renderer);
     }
 
-    private Entity createAttackBomber(Vector3f position, Vector3f orientation, long teamId, RendererComponent renderer) {
+    protected Entity createAttackBomber(Vector3f position, Vector3f orientation, long teamId, RendererComponent renderer) {
         Entity ship = createShip(BOMBER_MASS_IN_KG, position, orientation, renderer);
         entityManager.addComponentToEntity(Team.getById(teamId), ship);
         return ship;

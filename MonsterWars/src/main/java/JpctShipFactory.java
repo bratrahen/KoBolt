@@ -12,10 +12,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class JpctMonsterFactory extends MonstersFactory{
+public class JpctShipFactory extends ShipFactory {
     private final ModelLoader loader = new ModelLoader("F:\\1.ProgramowanieProjekty\\_resources\\models");
 
-    public JpctMonsterFactory(EntityManager entityManager) {
+    public JpctShipFactory(EntityManager entityManager) {
         super(entityManager);
     }
 

@@ -28,7 +28,7 @@ public class MonsterWarsGame extends Game {
         systems.add(new PhysicsSystem(entityManager, GRAVITY));
         systems.add(new DisposeSystem(entityManager));
 
-        MonstersFactory factory = new JpctMonsterFactory(entityManager);
+        ShipFactory factory = new JpctShipFactory(entityManager);
 
         final long BLUE_TEAM = 1;
         factory.createKushanCarrier(new Vector3f(1600, 0, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
