@@ -1,5 +1,6 @@
 package com.kobot.framework.entitysystem;
 
+import com.bulletphysics.collision.shapes.CollisionShape;
 import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.MotionState;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
@@ -31,5 +32,10 @@ class StubRenderer implements RendererComponent{
 
     public MotionState createMotionState() {
         return new DefaultMotionState();
+    }
+
+    @NotNull
+    public CollisionShape getBoundingBox() {
+        return null;
     }
 }

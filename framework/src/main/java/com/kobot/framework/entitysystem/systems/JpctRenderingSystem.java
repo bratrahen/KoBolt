@@ -51,7 +51,7 @@ public class JpctRenderingSystem extends System {
         return result;
     }
 
-    private static void configJpct() {
+    public static void configJpct() {
         Config.glVerbose = true;
         Config.glAvoidTextureCopies = true;
         Config.maxPolysVisible = 1000;

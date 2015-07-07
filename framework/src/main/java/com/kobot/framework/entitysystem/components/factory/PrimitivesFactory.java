@@ -66,8 +66,8 @@ public abstract class PrimitivesFactory {
     protected abstract RendererComponent createCubeRenderer(float sideInMeters, @NotNull Color color);
 
     public Entity createCannonBall(Vector3f start) {
-        Entity cannonBall = createDynamicSphere(10, 1, Color.LIGHT_GRAY, start);
-        entityManager.addComponentToEntity(new MaxLifeSpan(1.0f), cannonBall);
+        Entity cannonBall = createDynamicSphere(10, 1, Color.GREEN, start);
+        entityManager.addComponentToEntity(new MaxLifeSpan(60.0f), cannonBall);
         return cannonBall;
     }
 

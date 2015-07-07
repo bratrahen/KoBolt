@@ -29,10 +29,10 @@ public class PhysicsSystem extends System {
     public PhysicsSystem(EntityManager manager, float gravity) {
         super(manager);
         this.gravity = gravity;
-        this.simulation = createSimulation();
+        this.simulation = createSimulation(gravity);
     }
 
-    protected DynamicsWorld createSimulation() {
+    public static DynamicsWorld createSimulation(float gravity) {
         // collision configuration contains default setup for memory, collision
         // setup. Advanced users can getById their own configuration.
         CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
