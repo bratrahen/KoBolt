@@ -1,5 +1,6 @@
 package com.kobot.framework.entitysystem.components.factory;
 
+import com.kobot.framework.ModelLoader;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
@@ -15,9 +16,17 @@ import java.awt.*;
 
 public class JpctEntityFactory extends EntityFactory {
 
+    private final ModelLoader loader = new ModelLoader("");
+
     public JpctEntityFactory(EntityManager entityManager) {
         super(entityManager);
     }
+
+//    protected createAdvancedSupportFrigateRenderer(){
+//        Object3D object3d = loader.load("AdvancedSupportFrigate", 1.0f);
+//        object3d.setName("AdvancedSupportFrigate@" + object3d.getID());
+//    }
+
 
     @Override
     protected RendererComponent createSphereRenderer(float radiusInMeters, Color color) {

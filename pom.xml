@@ -13,6 +13,7 @@
         <module>BouncingBall</module>
         <module>MonsterWars</module>
         <module>HelloWorlds</module>
+        <module>BasicDemo</module>
     </modules>
 
     <dependencies>

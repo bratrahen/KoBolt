@@ -8,13 +8,11 @@ import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.DynamicsWorld;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
-import com.kobot.framework.entitysystem.components.PhysicsComponent;
-import org.jetbrains.annotations.NotNull;
 
 import javax.vecmath.Vector3f;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +23,7 @@ public class PhysicsSystem extends System {
     public final float gravity;
 
     public PhysicsSystem(EntityManager entityManager) {
-        this(entityManager, 10.0f);
+        this(entityManager, -10.0f);
     }
 
     public PhysicsSystem(EntityManager manager, float gravity) {
@@ -64,14 +62,14 @@ public class PhysicsSystem extends System {
                 dispatcher, overlappingPairCache, solver,
                 collisionConfiguration);
 
-        result.setGravity(new Vector3f(0, -gravity, 0));
+        result.setGravity(new Vector3f(0, gravity, 0));
 
         return result;
     }
 
     @Override
     public void update(float timestepInSecond) {
-        Set<Entity> entities = finder.findAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
+        Set<Entity> entities = finder.findAllEntitiesPossessingComponentOfClass(Body.class);
 
         for (Entity entity : entities) {
             if (!simulatedEntities.contains(entity)) {
@@ -87,14 +85,14 @@ public class PhysicsSystem extends System {
     }
 
     private void remove(Entity entity) {
-        PhysicsComponent component = finder.findPhysicalBody(entity);
-        simulation.removeRigidBody(component.body);
+        Body component = finder.findPhysicalBody(entity);
+        component.removeFromSimulation(simulation);
         simulatedEntities.remove(entity);
     }
 
     private void add(Entity entity) {
-        PhysicsComponent component = finder.findPhysicalBody(entity);
-        simulation.addRigidBody(component.body);
+        Body component = finder.findPhysicalBody(entity);
+        component.addToSimulation(simulation);
         simulatedEntities.add(entity);
     }
 }

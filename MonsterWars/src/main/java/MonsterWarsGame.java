@@ -1,5 +1,7 @@
 import com.kobot.framework.Game;
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.components.JetEngine;
+import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.factory.EntityFactory;
@@ -28,6 +30,7 @@ public class MonsterWarsGame extends Game {
 
         systems.add(new MaxLifeSpanSystem(entityManager));
         systems.add(new AiSystem(entityManager));
+        systems.add(new JetEnginesSystem(entityManager));
         systems.add(new PhysicsSystem(entityManager));
         systems.add(new DisposeSystem(entityManager));
 
@@ -37,10 +40,15 @@ public class MonsterWarsGame extends Game {
         entityManager.addComponentToEntity(Team.getById(RED_TEAM), redCube);
 
         final long BLUE_TEAM = 2;
-        Entity blueCube = entityFactory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(50, 50, 0));
+        Entity blueCube = entityFactory.createStaticCube(10, Color.CYAN, new Vector3f(40, 0, 0));
         entityManager.addComponentToEntity(Team.getById(BLUE_TEAM), blueCube);
-        Entity blueSphere = entityFactory.createStaticCube(10, Color.CYAN, new Vector3f(50, 0, 0));
+
+        Entity blueSphere = entityFactory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(50, 50, 0));
         entityManager.addComponentToEntity(Team.getById(BLUE_TEAM), blueSphere);
+
+        JetEngine jetEngine = new JetEngine(new ComponentFinder(entityManager), new Vector3f(0, -10, 0));
+        entityManager.addComponentToEntity(jetEngine, blueSphere);
+        jetEngine.setThrustPercentage(100);
     }
 
     @Override

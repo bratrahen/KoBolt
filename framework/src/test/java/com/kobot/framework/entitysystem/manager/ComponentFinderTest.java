@@ -2,7 +2,7 @@ package com.kobot.framework.entitysystem.manager;
 
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubEntityFactory;
-import com.kobot.framework.entitysystem.components.PhysicsComponent;
+import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.Team;
@@ -60,10 +60,10 @@ public class ComponentFinderTest {
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
-        PhysicsComponent redBody = finder.findPhysicalBody(redSphere);
+        Body redBody = finder.findPhysicalBody(redSphere);
         assertTrue(redBody.getPosition().equals(new Vector3f(0, 0, 0)));
 
-        PhysicsComponent blueBody = finder.findPhysicalBody(blueSphere);
+        Body blueBody = finder.findPhysicalBody(blueSphere);
         assertTrue(blueBody.getPosition().equals(new Vector3f(10, 0, 0)));
     }
 

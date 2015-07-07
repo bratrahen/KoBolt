@@ -3,9 +3,11 @@ package com.kobot.framework.entitysystem.manager;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.*;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
+import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.Component;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
-import com.kobot.framework.entitysystem.components.api.basic.SharedComponent;
+import com.kobot.framework.entitysystem.components.api.modifiers.Timeable;
+import com.kobot.framework.entitysystem.components.body.PrimitiveBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -38,8 +40,8 @@ public class ComponentFinder {
     }
 
     @NotNull
-    public PhysicsComponent findPhysicalBody(Entity entity) {
-        return (PhysicsComponent) findFirst(PhysicsComponent.class, entity);
+    public Body findPhysicalBody(Entity entity) {
+        return (Body) findFirst(PrimitiveBody.class, entity);
     }
 
     @NotNull
@@ -96,5 +98,13 @@ public class ComponentFinder {
 
     public Set<Entity> findAllDisposed() {
         return entityManager.getAllEntitiesPossessingComponentOfClass(Dispose.class);
+    }
+
+    public Set<JetEngine> findAllJetEngines() {
+        return findAll(JetEngine.class);
+    }
+
+    public Set<Timeable> findAllTimeable() {
+        return findAll(Timeable.class);
     }
 }

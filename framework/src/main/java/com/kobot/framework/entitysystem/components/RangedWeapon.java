@@ -1,6 +1,7 @@
 package com.kobot.framework.entitysystem.components;
 
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.Component;
 import com.kobot.framework.entitysystem.components.factory.EntityFactory;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
@@ -34,10 +35,10 @@ public class RangedWeapon implements Component {
         }
 
         Entity projectile = factory.createCannonBall(start);
-        PhysicsComponent physics = new ComponentFinder(factory.entityManager).findPhysicalBody(projectile);
+        Body body = new ComponentFinder(factory.entityManager).findPhysicalBody(projectile);
         Vector3f forceVector = new Vector3f(direction);
         forceVector.scale(forceInNewtons);
-        physics.body.applyCentralImpulse(forceVector);
+        body.applyCentralImpulse(forceVector);
 
         cooldownInSeconds = reloadInSeconds;
     }

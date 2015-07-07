@@ -1,10 +1,12 @@
 package com.kobot.framework.entitysystem.components.factory;
 
+import com.kobot.framework.ModelLoader;
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.MaxLifeSpan;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
-import com.kobot.framework.entitysystem.components.PhysicsComponent;
+import com.kobot.framework.entitysystem.components.body.PrimitiveBody;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
 import com.kobot.framework.objects.physics.Box;
@@ -22,6 +24,11 @@ public abstract class EntityFactory {
         this.entityManager = entityManager;
     }
 
+//    @NotNull
+//    public Entity createAdvancedSupportFrigate(@NotNull String modelName, @NotNull Vector3f position){
+//
+//    }
+
 
     @NotNull
     public Entity createStaticSphere(float radiusInMeters, @NotNull Color color, @NotNull Vector3f position) {
@@ -32,7 +39,7 @@ public abstract class EntityFactory {
     public Entity createDynamicSphere(float massInKilograms, float radiusInMeters, @NotNull Color color, @NotNull Vector3f position) {
         RendererComponent renderer = createSphereRenderer(radiusInMeters, color);
         Sphere sphere = new Sphere(massInKilograms, radiusInMeters, position, renderer.createMotionState());
-        PhysicsComponent physics = new PhysicsComponent(sphere.getRigidBody());
+        Body physics = new PrimitiveBody(sphere.getRigidBody());
 
         Entity entity = entityManager.createEntity();
         entityManager.addComponentToEntity(renderer, entity);
@@ -54,7 +61,7 @@ public abstract class EntityFactory {
         RendererComponent renderer = createCubeRenderer(sideInMeters, color);
 
         Box cube = new Box(massInKilograms, sideInMeters, position, renderer.createMotionState());
-        PhysicsComponent simulator = new PhysicsComponent(cube.getRigidBody());
+        Body simulator = new PrimitiveBody(cube.getRigidBody());
         Entity entity = entityManager.createEntity();
         entityManager.addComponentToEntity(renderer, entity);
         entityManager.addComponentToEntity(simulator, entity);
@@ -71,6 +78,17 @@ public abstract class EntityFactory {
         return entity;
     }
 
+
+    public Entity createDynamicCubeWithGun(float massInKg, float sideInMeters, @NotNull Color color, @NotNull Vector3f position){
+        final float DAMAGE = 10.0f;
+        final float RELOAD_IN_SEC= 2.0f;
+
+        Entity entity = createDynamicCube(massInKg, sideInMeters, color, position);
+        entityManager.addComponentToEntity(new RangedWeapon(DAMAGE, RELOAD_IN_SEC, this), entity);
+        entityManager.addComponentToEntity(new MotherShipAi(entityManager), entity);
+        return entity;
+    }
+
     @NotNull
     protected abstract RendererComponent createCubeRenderer(float sideInMeters, @NotNull Color color);
 
@@ -79,4 +97,5 @@ public abstract class EntityFactory {
         entityManager.addComponentToEntity(new MaxLifeSpan(1.0f), cannonBall);
         return cannonBall;
     }
+
 }
