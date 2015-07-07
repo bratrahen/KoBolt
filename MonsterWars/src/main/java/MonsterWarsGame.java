@@ -4,8 +4,8 @@ import com.kobot.framework.entitysystem.components.JetEngine;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.Team;
-import com.kobot.framework.entitysystem.components.factory.EntityFactory;
-import com.kobot.framework.entitysystem.components.factory.JpctEntityFactory;
+import com.kobot.framework.entitysystem.components.factory.PrimitivesFactory;
+import com.kobot.framework.entitysystem.components.factory.JpctPrimitivesFactory;
 import com.kobot.framework.entitysystem.systems.*;
 import com.kobot.framework.entitysystem.systems.System;
 
@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MonsterWarsGame extends Game {
+    private static final float GRAVITY = -10.0f;
     private final JpctRenderingSystem renderingSystem;
     private final Set<System> systems = new HashSet<System>();
 
@@ -31,24 +32,17 @@ public class MonsterWarsGame extends Game {
         systems.add(new MaxLifeSpanSystem(entityManager));
         systems.add(new AiSystem(entityManager));
         systems.add(new JetEnginesSystem(entityManager));
-        systems.add(new PhysicsSystem(entityManager));
+        systems.add(new PhysicsSystem(entityManager, GRAVITY));
         systems.add(new DisposeSystem(entityManager));
 
-        EntityFactory entityFactory = new JpctEntityFactory(entityManager);
+        MonstersFactory factory = new MonstersFactory(entityManager);
+
         final long RED_TEAM = 1;
-        Entity redCube = entityFactory.createStaticCubeWithGun(10, Color.RED, new Vector3f(-50, 0, 0));
-        entityManager.addComponentToEntity(Team.getById(RED_TEAM), redCube);
+        factory.createCastleWithGun(new Vector3f(-50, 0, 0), RED_TEAM);
 
         final long BLUE_TEAM = 2;
-        Entity blueCube = entityFactory.createStaticCube(10, Color.CYAN, new Vector3f(40, 0, 0));
-        entityManager.addComponentToEntity(Team.getById(BLUE_TEAM), blueCube);
-
-        Entity blueSphere = entityFactory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(50, 50, 0));
-        entityManager.addComponentToEntity(Team.getById(BLUE_TEAM), blueSphere);
-
-        JetEngine jetEngine = new JetEngine(new ComponentFinder(entityManager), new Vector3f(0, -10, 0));
-        entityManager.addComponentToEntity(jetEngine, blueSphere);
-        jetEngine.setThrustPercentage(100);
+        factory.createCastle(new Vector3f(50, 0, 0), BLUE_TEAM);
+        factory.createMeleeMonster(new Vector3f(50, 50, 0), BLUE_TEAM);
     }
 
     @Override

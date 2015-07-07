@@ -1,13 +1,12 @@
 package com.kobot.framework.entitysystem.components;
 
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.StubEntityFactory;
+import com.kobot.framework.entitysystem.StubPrimitivesFactory;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.systems.PhysicsSystem;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.vecmath.Vector3f;
@@ -19,7 +18,7 @@ public class JetEngineTest {
 
     private EntityManager manager;
     private ComponentFinder finder;
-    private StubEntityFactory factory;
+    private StubPrimitivesFactory factory;
     private PhysicsSystem simulation;
 
     private static final float GRAVITY = -10;
@@ -28,7 +27,7 @@ public class JetEngineTest {
     public void setUp() throws Exception {
         manager = new EntityManager();
         finder = new ComponentFinder(manager);
-        factory = new StubEntityFactory(manager);
+        factory = new StubPrimitivesFactory(manager);
         simulation = new PhysicsSystem(manager, GRAVITY);
     }
 

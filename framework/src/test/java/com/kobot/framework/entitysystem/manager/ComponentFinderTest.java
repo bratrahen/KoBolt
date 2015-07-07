@@ -1,7 +1,7 @@
 package com.kobot.framework.entitysystem.manager;
 
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.StubEntityFactory;
+import com.kobot.framework.entitysystem.StubPrimitivesFactory;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.RangedWeapon;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
@@ -56,7 +56,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindSinglePhysicalBody() throws Exception {
-        StubEntityFactory factory = new StubEntityFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
@@ -69,9 +69,9 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindGun() throws Exception {
-        StubEntityFactory factory = new StubEntityFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
-        RangedWeapon weapon = new RangedWeapon(1, 1, new StubEntityFactory(entityManager));
+        RangedWeapon weapon = new RangedWeapon(1, 1, new StubPrimitivesFactory(entityManager));
         entityManager.addComponentToEntity(weapon, redSphere);
 
         Set<RangedWeapon> weapons = finder.findRangedWeapons(redSphere);
@@ -81,7 +81,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindAllMotherShipsAi() throws Exception {
-        StubEntityFactory factory = new StubEntityFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
@@ -100,7 +100,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindRenderers() throws Exception {
-        StubEntityFactory factory = new StubEntityFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
 
         Set<RendererComponent> renderers = finder.findRenderers(redSphere);

@@ -17,18 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import javax.vecmath.Vector3f;
 import java.awt.*;
 
-public abstract class EntityFactory {
+public abstract class PrimitivesFactory {
     public final EntityManager entityManager;
 
-    public EntityFactory(EntityManager entityManager) {
+    public PrimitivesFactory(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
-//    @NotNull
-//    public Entity createAdvancedSupportFrigate(@NotNull String modelName, @NotNull Vector3f position){
-//
-//    }
-
 
     @NotNull
     public Entity createStaticSphere(float radiusInMeters, @NotNull Color color, @NotNull Vector3f position) {
@@ -65,27 +59,6 @@ public abstract class EntityFactory {
         Entity entity = entityManager.createEntity();
         entityManager.addComponentToEntity(renderer, entity);
         entityManager.addComponentToEntity(simulator, entity);
-        return entity;
-    }
-
-    public Entity createStaticCubeWithGun(float sideInMeters, @NotNull Color color, @NotNull Vector3f position){
-        final float DAMAGE = 10.0f;
-        final float RELOAD_IN_SEC= 2.0f;
-
-        Entity entity = createStaticCube(sideInMeters, color, position);
-        entityManager.addComponentToEntity(new RangedWeapon(DAMAGE, RELOAD_IN_SEC, this), entity);
-        entityManager.addComponentToEntity(new MotherShipAi(entityManager), entity);
-        return entity;
-    }
-
-
-    public Entity createDynamicCubeWithGun(float massInKg, float sideInMeters, @NotNull Color color, @NotNull Vector3f position){
-        final float DAMAGE = 10.0f;
-        final float RELOAD_IN_SEC= 2.0f;
-
-        Entity entity = createDynamicCube(massInKg, sideInMeters, color, position);
-        entityManager.addComponentToEntity(new RangedWeapon(DAMAGE, RELOAD_IN_SEC, this), entity);
-        entityManager.addComponentToEntity(new MotherShipAi(entityManager), entity);
         return entity;
     }
 

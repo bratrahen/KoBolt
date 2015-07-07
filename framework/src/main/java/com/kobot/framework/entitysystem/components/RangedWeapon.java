@@ -3,7 +3,7 @@ package com.kobot.framework.entitysystem.components;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.Component;
-import com.kobot.framework.entitysystem.components.factory.EntityFactory;
+import com.kobot.framework.entitysystem.components.factory.PrimitivesFactory;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,10 +13,10 @@ public class RangedWeapon implements Component {
     public final float damage;
     public final float reloadInSeconds;
     private final float forceInNewtons = 1000;
-    private final EntityFactory factory;
+    private final PrimitivesFactory factory;
     private float cooldownInSeconds;
 
-    public RangedWeapon(float damage, float reloadInSeconds, @NotNull EntityFactory factory) {
+    public RangedWeapon(float damage, float reloadInSeconds, @NotNull PrimitivesFactory factory) {
         this.damage = damage;
         this.reloadInSeconds = reloadInSeconds;
         this.factory = factory;
