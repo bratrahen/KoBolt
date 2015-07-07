@@ -21,8 +21,61 @@ import javax.vecmath.Vector3f;
 import java.awt.*;
 
 public abstract class MonstersFactory extends PrimitivesFactory {
+    private static final float BOMBER_MASS_IN_KG = 10;
+    private static final float CARRIER_MASS_IN_KG = 10000;
+    private static final float FRIGATE_MASS_IN_KG = 1000;
+
     public MonstersFactory(EntityManager entityManager) {
         super(entityManager);
+    }
+
+    protected abstract RendererComponent createKushanAttackBomberRenderer();
+
+    protected abstract RendererComponent createTaiidanAttackBomberRenderer();
+
+    protected abstract RendererComponent createKushanAssaultFrigateRenderer();
+
+    protected abstract RendererComponent createTaiidanAssaultFrigateRenderer();
+
+    protected abstract RendererComponent createKushanCarrierRenderer();
+
+    protected abstract RendererComponent createTaiidanCarrierRenderer();
+
+    public Entity createKushanAttackBomber(Vector3f position, Vector3f orientation, long teamId) {
+        RendererComponent renderer = createKushanAttackBomberRenderer();
+        return createAttackBomber(position, orientation, teamId, renderer);
+    }
+
+    public Entity createTaiidanAttackBomber(Vector3f position, Vector3f orientation, long teamId) {
+        RendererComponent renderer = createTaiidanAttackBomberRenderer();
+        return createAttackBomber(position, orientation, teamId, renderer);
+    }
+
+    private Entity createAttackBomber(Vector3f position, Vector3f orientation, long teamId, RendererComponent renderer) {
+        Entity ship = createShip(BOMBER_MASS_IN_KG, position, orientation, renderer);
+        entityManager.addComponentToEntity(Team.getById(teamId), ship);
+        return ship;
+    }
+
+    public Entity createKushanAssaultFrigate(Vector3f position, Vector3f orientation, long teamId) {
+        RendererComponent renderer = createKushanAssaultFrigateRenderer();
+        return createAssaultFrigate(position, orientation, teamId, renderer);
+    }
+
+    public Entity createTaiidanAssaultFrigate(Vector3f position, Vector3f orientation, long teamId) {
+        RendererComponent renderer = createTaiidanAssaultFrigateRenderer();
+        return createAssaultFrigate(position, orientation, teamId, renderer);
+    }
+
+    private Entity createAssaultFrigate(Vector3f position, Vector3f orientation, long teamId, RendererComponent renderer) {
+        Entity ship = createShip(FRIGATE_MASS_IN_KG, position, orientation, renderer);
+        entityManager.addComponentToEntity(Team.getById(teamId), ship);
+        return ship;
+    }
+
+    public Entity createKushanCarrier(Vector3f position, Vector3f orientation, long teamId) {
+        RendererComponent renderer = createKushanCarrierRenderer();
+        return createCarrier(position, orientation, teamId, renderer);
     }
 
     public Entity createTaiidanCarrier(Vector3f position, Vector3f orientation, long teamId) {
@@ -30,11 +83,13 @@ public abstract class MonstersFactory extends PrimitivesFactory {
         return createCarrier(position, orientation, teamId, renderer);
     }
 
-    protected abstract RendererComponent createTaiidanCarrierRenderer();
-
     private Entity createCarrier(Vector3f position, Vector3f orientation, long teamId, RendererComponent renderer) {
-        final float massInKilograms = 1000;
+        Entity ship = createShip(CARRIER_MASS_IN_KG, position, orientation, renderer);
+        entityManager.addComponentToEntity(Team.getById(teamId), ship);
+        return ship;
+    }
 
+    private Entity createShip(float massInKilograms, Vector3f position, Vector3f orientation, RendererComponent renderer) {
         CollisionShape boundingBox = renderer.getBoundingBox();
         MotionState motionState = renderer.createMotionState();
 
@@ -70,10 +125,7 @@ public abstract class MonstersFactory extends PrimitivesFactory {
         rbInfo.angularDamping = 0.0f;
         Body body = new PrimitiveBody(new RigidBody(rbInfo));
 
-
-        Entity entity = createEntity(body, renderer);
-        entityManager.addComponentToEntity(Team.getById(teamId), entity);
-        return entity;
+        return createEntity(body, renderer);
     }
 
     @NotNull
@@ -93,13 +145,6 @@ public abstract class MonstersFactory extends PrimitivesFactory {
 
         return entity;
     }
-
-    public Entity createKushanCarrier(Vector3f position, Vector3f orientation, long teamId) {
-        RendererComponent renderer = createKushanCarrierRenderer();
-        return createCarrier(position, orientation, teamId, renderer);
-    }
-
-    protected abstract RendererComponent createKushanCarrierRenderer();
 
     Entity createCastleWithGun(Vector3f position, long teamId) {
         final float DAMAGE = 10.0f;

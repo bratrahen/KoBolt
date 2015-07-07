@@ -48,13 +48,31 @@ public class JpctMonsterFactory extends MonstersFactory{
     }
 
     protected RendererComponent createKushanCarrierRenderer(){
-        Object3D object3D = loader.load("Homeworld\\Kushan\\Carrier\\lod0", "Carrier", 1.0f);
-        return new JpctRendererComponent(object3D);
+        return new JpctRendererComponent(loader.load("Homeworld\\Kushan\\Carrier\\lod0", "Carrier", 1.0f));
     }
 
     @Override
     protected RendererComponent createTaiidanCarrierRenderer() {
-        Object3D object3D = loader.load("Homeworld\\Taiidan\\Carrier-T\\lod0", "Carrier", 1.0f);
-        return new JpctRendererComponent(object3D);
+        return new JpctRendererComponent(loader.load("Homeworld\\Taiidan\\Carrier-T\\lod0", "Carrier", 1.0f));
+    }
+
+    @Override
+    protected RendererComponent createKushanAttackBomberRenderer() {
+        return new JpctRendererComponent(loader.load("Homeworld\\Kushan\\Attack Bomber\\lod0", "Attackbomber", 1.0f));
+    }
+
+    @Override
+    protected RendererComponent createTaiidanAttackBomberRenderer() {
+        return new JpctRendererComponent(loader.load("Homeworld\\Taiidan\\Attack Bomber-T\\lod0", "Attackbomber", 1.0f));
+    }
+
+    @Override
+    protected RendererComponent createKushanAssaultFrigateRenderer() {
+        return new JpctRendererComponent(loader.load("Homeworld\\Kushan\\Assault Frigate\\lod0", "Standardfrigate", 1.0f));
+    }
+
+    @Override
+    protected RendererComponent createTaiidanAssaultFrigateRenderer() {
+        return new JpctRendererComponent(loader.load("Homeworld\\Taiidan\\Assault Frigate-T\\lod0", "Standardfrigate", 1.0f));
     }
 }
