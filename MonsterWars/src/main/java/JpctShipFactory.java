@@ -76,3 +76,5 @@ public class JpctShipFactory extends ShipFactory {
         return new JpctRendererComponent(loader.load("Homeworld\\Taiidan\\Assault Frigate-T\\lod0", "Standardfrigate", 1.0f));
     }
 }
+
+

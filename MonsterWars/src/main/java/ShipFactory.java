@@ -104,7 +104,7 @@ public abstract class ShipFactory extends PrimitivesFactory {
 
         Matrix3f Ry = new Matrix3f();
         Ry.setIdentity();
-        Ry.rotY(orientation.y);
+        Ry.rotY(PI + orientation.y);
 
         Matrix3f Rz = new Matrix3f();
         Rz.setIdentity();

@@ -31,16 +31,21 @@ public class MonsterWarsGame extends Game {
         ShipFactory factory = new JpctShipFactory(entityManager);
 
         final long BLUE_TEAM = 1;
-        factory.createKushanCarrier(new Vector3f(1600, 0, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
-        factory.createKushanAssaultFrigate(new Vector3f(1600, 600, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
-        for (int k = 2; k >= 0; k--){
-            for (int i = -k; i <= k;  i++ ) {
-                factory.createKushanAttackBomber(new Vector3f(1600 + 140 * k, -400, i * 60), new Vector3f(0, 0, 0), BLUE_TEAM);
-            }
-        }
+        factory.createKushanAssaultFrigate(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
+        factory.createKushanAttackBomber(new Vector3f(400, 0, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
+        factory.createKushanAttackBomber(new Vector3f(0, 400, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
+        factory.createKushanAttackBomber(new Vector3f(0, 0, 400), new Vector3f(0, 0, 0), BLUE_TEAM);
 
-        final long RED_TEAM = 2;
-        factory.createTaiidanCarrier(new Vector3f(-1600, 0, 0), new Vector3f(0, (float)Math.PI, 0), RED_TEAM);
+//        factory.createKushanCarrier(new Vector3f(1600, 0, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
+//        factory.createKushanAssaultFrigate(new Vector3f(1600, 600, 0), new Vector3f(0, 0, 0), BLUE_TEAM);
+//        for (int k = 2; k >= 0; k--){
+//            for (int i = -k; i <= k;  i++ ) {
+//                factory.createKushanAttackBomber(new Vector3f(1600 + 140 * k, -400, i * 60), new Vector3f(0, 0, 0), BLUE_TEAM);
+//            }
+//        }
+//
+//        final long RED_TEAM = 2;
+//        factory.createTaiidanCarrier(new Vector3f(-1600, 0, 0), new Vector3f(0, (float)Math.PI, 0), RED_TEAM);
     }
 
     @Override
