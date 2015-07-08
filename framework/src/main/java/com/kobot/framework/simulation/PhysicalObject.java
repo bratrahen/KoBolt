@@ -88,6 +88,14 @@ public class PhysicalObject implements Body {
 
             eulerZ[0] = Math.atan2(R.m10/Math.cos(eulerY[0]), R.m00/Math.cos(eulerY[0]));
             eulerZ[1] = Math.atan2(R.m10/Math.cos(eulerY[1]), R.m00/Math.cos(eulerY[1]));
+
+            if (eulerX[0] > eulerX[1]){
+                return new Vector3f((float)eulerX[0], (float)eulerY[0], (float)eulerZ[0]);
+            } else {
+                return new Vector3f((float)eulerX[1], (float)eulerY[1], (float)eulerZ[1]);
+            }
+
+
         } else {
             eulerZ[0] = 0;
             if (areEqual(R.m20, -1, eps)){
@@ -98,14 +106,8 @@ public class PhysicalObject implements Body {
                 eulerX[0] = -eulerZ[0] + Math.atan2(-R.m01, -R.m02);
             }
 
+            return new Vector3f((float)eulerX[0], (float)eulerY[0], (float)eulerZ[0]);
         }
-
-        int x = 0;
-        if (eulerX[0] < eulerX[1]){
-            x = 1;
-        }
-
-        return new Vector3f((float)eulerX[x], (float)eulerY[x], (float)eulerZ[x]);
     }
 
     private boolean areEqual(double a, double b, double eps){
