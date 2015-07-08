@@ -4,6 +4,7 @@ import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.Transform;
 import com.kobot.framework.entitysystem.components.api.Body;
 
+import javax.vecmath.Matrix3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
@@ -64,4 +65,52 @@ public class PhysicalObject implements Body {
         rigidBody.getWorldTransform(T);
         return T;
     }
+
+    /**
+     * Object's orientation in world space as Euler Angles
+     * @return [eulerX, eulerY, eulerZ]
+     */
+    public Vector3f getOrientation() {
+        //http://staff.city.ac.uk/~sbbh653/publications/euler.pdf
+        Matrix3f R = getWorldTransform().basis;
+
+        double[] eulerX = new double[2];
+        double[] eulerY = new double[2];
+        double[] eulerZ = new double[2];
+
+        final double eps = 0.000001;
+        if (!areEqual(R.m20, -1, eps) && !areEqual(R.m20, 1, eps)){
+            eulerY[0] = -Math.asin(R.m20);
+            eulerY[1] = Math.PI - eulerY[0];
+
+            eulerX[0] = Math.atan2(R.m21/Math.cos(eulerY[0]), R.m22/Math.cos(eulerY[0]));
+            eulerX[1] = Math.atan2(R.m21/Math.cos(eulerY[1]), R.m22/Math.cos(eulerY[1]));
+
+            eulerZ[0] = Math.atan2(R.m10/Math.cos(eulerY[0]), R.m00/Math.cos(eulerY[0]));
+            eulerZ[1] = Math.atan2(R.m10/Math.cos(eulerY[1]), R.m00/Math.cos(eulerY[1]));
+        } else {
+            eulerZ[0] = 0;
+            if (areEqual(R.m20, -1, eps)){
+                eulerY[0] = Math.PI/2.0;
+                eulerX[0] = eulerZ[0] + Math.atan2(R.m01, R.m02);
+            } else {
+                eulerY[0] = -Math.PI/2.0;
+                eulerX[0] = -eulerZ[0] + Math.atan2(-R.m01, -R.m02);
+            }
+
+        }
+
+        int x = 0;
+        if (eulerX[0] < eulerX[1]){
+            x = 1;
+        }
+
+        return new Vector3f((float)eulerX[x], (float)eulerY[x], (float)eulerZ[x]);
+    }
+
+    private boolean areEqual(double a, double b, double eps){
+        return Math.abs(a - b) <= eps;
+    }
 }
+
+

@@ -105,8 +105,8 @@ public class PhysicalObjectBuilder {
 
         Matrix3f Rxyz = new Matrix3f();
         Rxyz.setIdentity();
-        Rxyz.mul(Rx, Ry);
-        Rxyz.mul(Rxyz, Rz);
+        Rxyz.mul(Rz, Ry);
+        Rxyz.mul(Rxyz, Rx);
         transform.basis.set(Rxyz);
 
         return transform;
