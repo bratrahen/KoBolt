@@ -1,3 +1,5 @@
+package com.monsterwars;
+
 import com.kobot.framework.ModelLoader;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;

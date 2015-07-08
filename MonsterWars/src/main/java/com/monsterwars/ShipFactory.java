@@ -1,3 +1,5 @@
+package com.monsterwars;
+
 import com.bulletphysics.collision.shapes.CollisionShape;
 
 import com.kobot.framework.entitysystem.Entity;

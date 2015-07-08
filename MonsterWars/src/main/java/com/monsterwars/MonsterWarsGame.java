@@ -1,3 +1,5 @@
+package com.monsterwars;
+
 import com.kobot.framework.Game;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.systems.*;
