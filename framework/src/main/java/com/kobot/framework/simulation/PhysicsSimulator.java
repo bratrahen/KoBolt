@@ -7,12 +7,9 @@ import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
 import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.DynamicsWorld;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
-import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.api.Body;
 
-import javax.media.j3d.PhysicalBody;
 import javax.vecmath.Vector3f;
-import java.util.Set;
+
 
 /**
  *  By default, Bullet assumes units to be in meters and time in seconds.
@@ -25,13 +22,18 @@ import java.util.Set;
  *
  */
 public class PhysicsSimulator {
-    private DynamicsWorld simulation;
+    private final DynamicsWorld simulation;
+    private final float scale;
 
-    public PhysicsSimulator(Vector3f gravity) {
-        simulation = createSimulation(gravity);
+    public PhysicsSimulator(Vector3f gravity, float scale) {
+        this.scale = scale;
+
+        Vector3f scaledGravity = new Vector3f(gravity);
+        scaledGravity.scale(scale);
+        this.simulation = createSimulation(scaledGravity);
     }
 
-    private static DynamicsWorld createSimulation(Vector3f gravity) {
+    private DynamicsWorld createSimulation(Vector3f gravity) {
         // collision configuration contains default setup for memory, collision
         // setup. Advanced users can getById their own configuration.
         CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
@@ -82,8 +84,10 @@ public class PhysicsSimulator {
     }
 
     public Vector3f getGravity(){
-        Vector3f result = new Vector3f();
-        return simulation.getGravity(result);
+        Vector3f gravity = new Vector3f();
+        simulation.getGravity(gravity);
+        gravity.scale(1f/scale);
+        return gravity;
     }
 
 

@@ -9,14 +9,16 @@ import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
 public class PhysicalObject implements Body {
-    private RigidBody rigidBody;
+    private final RigidBody rigidBody;
+    private final float scale;
 
     /**
      * Package scope constructor. Use PhysicalObjectBuilder to create PhysicalObject instance.
      * @param rigidBody
      */
-    PhysicalObject(RigidBody rigidBody) {
+    PhysicalObject(RigidBody rigidBody, float scale) {
         this.rigidBody = rigidBody;
+        this.scale = scale;
     }
 
     /**
@@ -25,10 +27,12 @@ public class PhysicalObject implements Body {
      * Point of application is center of gravity.
      * Example:
      * Impulse 10 [N] applied to object of mass of 2 [kg] would immediately increase object's speed by 5 [m/s]
-     * @param force measured in Newtons
+     * @param impulse measured in Newtons
      */
-    public void applyCentralImpulse(Vector3f force){
-        rigidBody.applyCentralImpulse(force);
+    public void applyCentralImpulse(Vector3f impulse){
+        Vector3f scaledImpulse = new Vector3f(impulse);
+        scaledImpulse.scale(scale);
+        rigidBody.applyCentralImpulse(scaledImpulse);
     }
 
     /**
@@ -36,6 +40,8 @@ public class PhysicalObject implements Body {
      * @param force measured in Newtons
      */
     public void applyCentralForce(Vector3f force){
+        Vector3f scaledForce = new Vector3f(force);
+        scaledForce.scale(scale);
         rigidBody.applyCentralForce(force);
     }
 
@@ -51,7 +57,9 @@ public class PhysicalObject implements Body {
      * @return [x, y, z] world coordinates measured in meters
      */
     public Vector3f getPosition() {
-        return getWorldTransform().origin;
+        Vector3f position = getWorldTransform().origin;
+        position.scale(1f/scale);
+        return position;
     }
 
     public Quat4f getRotation() {

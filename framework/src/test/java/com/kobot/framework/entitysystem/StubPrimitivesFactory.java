@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class StubPrimitivesFactory extends PrimitivesFactory {
     public StubPrimitivesFactory(EntityManager entityManager) {
-        super(entityManager);
+        super(entityManager, 1.0f);
     }
 
     @NotNull

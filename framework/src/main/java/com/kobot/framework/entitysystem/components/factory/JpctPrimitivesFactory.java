@@ -13,8 +13,8 @@ import java.awt.*;
 
 public class JpctPrimitivesFactory extends PrimitivesFactory {
 
-    public JpctPrimitivesFactory(EntityManager entityManager) {
-        super(entityManager);
+    public JpctPrimitivesFactory(EntityManager entityManager, float scale) {
+        super(entityManager, scale);
     }
 
     @Override

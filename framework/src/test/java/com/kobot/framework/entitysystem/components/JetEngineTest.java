@@ -28,7 +28,7 @@ public class JetEngineTest {
         manager = new EntityManager();
         finder = new ComponentFinder(manager);
         factory = new StubPrimitivesFactory(manager);
-        simulation = new PhysicsSystem(manager, GRAVITY);
+        simulation = new PhysicsSystem(manager, GRAVITY, 1.0f);
     }
 
 

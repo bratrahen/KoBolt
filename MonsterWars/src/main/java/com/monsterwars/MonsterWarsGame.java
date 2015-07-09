@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MonsterWarsGame extends Game {
+    private static final float SCALE = 0.01f;
     private static final float GRAVITY = 0.0f;
     private final JpctRenderingSystem renderingSystem;
     private final Set<System> systems = new HashSet<System>();
@@ -27,10 +28,10 @@ public class MonsterWarsGame extends Game {
         systems.add(new MaxLifeSpanSystem(entityManager));
         systems.add(new AiSystem(entityManager));
         systems.add(new JetEnginesSystem(entityManager));
-        systems.add(new PhysicsSystem(entityManager, GRAVITY));
+        systems.add(new PhysicsSystem(entityManager, GRAVITY, SCALE));
         systems.add(new DisposeSystem(entityManager));
 
-        ShipFactory factory = new JpctShipFactory(entityManager);
+        ShipFactory factory = new JpctShipFactory(entityManager, SCALE);
 
         final long BLUE_TEAM = 1;
         factory.createKushanAssaultFrigate(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), BLUE_TEAM);

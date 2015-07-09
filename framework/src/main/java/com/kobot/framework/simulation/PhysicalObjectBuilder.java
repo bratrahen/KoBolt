@@ -10,6 +10,8 @@ import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
 
 public class PhysicalObjectBuilder {
+    private final float scale;
+
     private CollisionShape shape;
     private float angularDamping;
     private float restitution;
@@ -17,6 +19,10 @@ public class PhysicalObjectBuilder {
     private float mass;
     private Vector3f position = new Vector3f();
     private Vector3f orientation = new Vector3f();
+
+    PhysicalObjectBuilder(float scale) {
+        this.scale = scale;
+    }
 
     /**
      * @param mass measured in kilograms [kg]
@@ -32,6 +38,7 @@ public class PhysicalObjectBuilder {
      */
     public PhysicalObjectBuilder setPosition(Vector3f position) {
         this.position = new Vector3f(position);
+        this.position.scale(scale);
         return this;
     }
 
@@ -74,7 +81,7 @@ public class PhysicalObjectBuilder {
         rbInfo.angularDamping = angularDamping;
 
         RigidBody rigidBody = new RigidBody(rbInfo);
-        return new PhysicalObject(rigidBody);
+        return new PhysicalObject(rigidBody, scale);
     }
 
     protected final Vector3f calculateInertia() {

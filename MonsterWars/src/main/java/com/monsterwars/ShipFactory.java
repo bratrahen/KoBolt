@@ -4,21 +4,24 @@ package com.monsterwars;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
-import com.kobot.framework.entitysystem.components.factory.PrimitivesFactory;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.simulation.PhysicalObject;
 import com.kobot.framework.simulation.PhysicalObjectBuilder;
+import com.kobot.framework.simulation.PhysicalObjectFactory;
 
 import javax.vecmath.Vector3f;
 
-public abstract class ShipFactory extends PrimitivesFactory {
+public abstract class ShipFactory extends PhysicalObjectFactory{
     private static final float PI = (float)Math.PI;
     private static final float BOMBER_MASS_IN_KG = 10;
     private static final float CARRIER_MASS_IN_KG = 10000;
     private static final float FRIGATE_MASS_IN_KG = 1000;
 
-    public ShipFactory(EntityManager entityManager) {
-        super(entityManager);
+    public final EntityManager entityManager;
+
+    public ShipFactory(EntityManager entityManager, float scale) {
+        super(scale);
+        this.entityManager = entityManager;
     }
 
     protected abstract RendererComponent createKushanAttackBomberRenderer();
@@ -81,7 +84,6 @@ public abstract class ShipFactory extends PrimitivesFactory {
         return ship;
     }
 
-
     /**
      * @param mass measured in kilograms [kg]
      * @param position world coordinated [x, y, z] measured in meters [m]
@@ -94,7 +96,7 @@ public abstract class ShipFactory extends PrimitivesFactory {
         Vector3f sumOrientation = new Vector3f(defaultOrientation);
         sumOrientation.add(orientation);
 
-        PhysicalObjectBuilder builder = new PhysicalObjectBuilder();
+        PhysicalObjectBuilder builder = createBuilder();
         builder.setShape(renderer.getBoundingBox());
         builder.setMass(mass).setPosition(position).setOrientation(sumOrientation);
         PhysicalObject physicalObject = builder.build(renderer.createMotionState());

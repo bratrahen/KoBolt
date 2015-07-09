@@ -13,17 +13,13 @@ public class PhysicsSystem extends System {
     Set<Entity> simulatedEntities = new HashSet<Entity>();
     PhysicsSimulator simulation;
 
-    public PhysicsSystem(EntityManager entityManager) {
-        this(entityManager, -10.0f);
+    public PhysicsSystem(EntityManager manager, float gravity, float scale) {
+        this(manager, new Vector3f(0, gravity, 0), scale);
     }
 
-    public PhysicsSystem(EntityManager manager, float gravity) {
-        this(manager, new Vector3f(0, gravity, 0));
-    }
-
-    public PhysicsSystem(EntityManager manager, Vector3f gravity) {
+    public PhysicsSystem(EntityManager manager, Vector3f gravity, float scale) {
         super(manager);
-        simulation = new PhysicsSimulator(gravity);
+        simulation = new PhysicsSimulator(gravity, scale);
     }
 
     @Override

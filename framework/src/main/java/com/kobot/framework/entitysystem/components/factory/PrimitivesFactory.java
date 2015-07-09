@@ -7,17 +7,19 @@ import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.simulation.PhysicalObject;
 import com.kobot.framework.simulation.PhysicalObjectBuilder;
+import com.kobot.framework.simulation.PhysicalObjectFactory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.vecmath.Vector3f;
 import java.awt.*;
 
-public abstract class PrimitivesFactory {
+public abstract class PrimitivesFactory extends PhysicalObjectFactory{
     public static final float MASS_OF_STATIC_OBJECT = 0.0f;
 
     public final EntityManager entityManager;
 
-    public PrimitivesFactory(EntityManager entityManager) {
+    public PrimitivesFactory(EntityManager entityManager, float scale) {
+        super(scale);
         this.entityManager = entityManager;
     }
 
@@ -50,7 +52,7 @@ public abstract class PrimitivesFactory {
         RendererComponent renderer = createSphereRenderer(radius, color);
 
         CollisionShape shape = CollisionShapeFactory.createSphereShape(radius);
-        PhysicalObjectBuilder builder = new PhysicalObjectBuilder();
+        PhysicalObjectBuilder builder = createBuilder();
         builder.setShape(shape).setMass(mass).setPosition(position).setRestitution(1.0f);
         PhysicalObject physicalObject = builder.build(renderer.createMotionState());
 
@@ -84,7 +86,7 @@ public abstract class PrimitivesFactory {
         RendererComponent renderer = createCubeRenderer(size, color);
 
         CollisionShape shape = CollisionShapeFactory.createBoxShape(new Vector3f(size, size, size));
-        PhysicalObjectBuilder builder = new PhysicalObjectBuilder();
+        PhysicalObjectBuilder builder = createBuilder();
         builder.setShape(shape).setMass(mass).setPosition(position).setRestitution(1.0f);
         PhysicalObject physicalObject = builder.build(renderer.createMotionState());
 

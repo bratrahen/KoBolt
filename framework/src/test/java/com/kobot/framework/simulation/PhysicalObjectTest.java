@@ -34,7 +34,7 @@ public class PhysicalObjectTest {
 
     @Test
     public void testGetOrientation() throws Exception {
-        PhysicalObjectBuilder builder = new PhysicalObjectBuilder();
+        PhysicalObjectBuilder builder = new StubPhysicalObjectFactory(1.0f).createBuilder();
 
         builder.setOrientation(orientation);
         PhysicalObject object = builder.build(new DefaultMotionState());
