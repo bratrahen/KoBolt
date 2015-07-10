@@ -5,17 +5,20 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.UniqueComponent;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.EntityFinder;
 
 import javax.vecmath.Vector3f;
 
 public class JetEngine implements UniqueComponent {
 
-    private final ComponentFinder finder;
+    private final ComponentFinder componentFinder;
+    private final EntityFinder entityFinder;
     private final Vector3f maxThrustForce;
     private float scale;
 
-    public JetEngine(ComponentFinder finder, Vector3f maxThrustForce) {
-        this.finder = finder;
+    public JetEngine(ComponentFinder componentFinder, EntityFinder entityFinder, Vector3f maxThrustForce) {
+        this.componentFinder = componentFinder;
+        this.entityFinder = entityFinder;
         this.maxThrustForce = maxThrustForce;
     }
 
@@ -26,8 +29,8 @@ public class JetEngine implements UniqueComponent {
     }
 
     public void applyForce() {
-        Entity entity = finder.findEntityForComponent(this);
-        Body body = finder.findPhysicalObject(entity);
+        Entity entity = entityFinder.findEntityForComponent(this);
+        Body body = componentFinder.findPhysicalObject(entity);
 
         Vector3f force = new Vector3f();
         QuaternionUtil.quatRotate(body.getRotation(), maxThrustForce, force);

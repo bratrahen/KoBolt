@@ -26,8 +26,8 @@ public class WeaponSystem extends System implements GameEventListener {
             CollisionWorld.ClosestRayResultCallback resultCallback = rayCaster.cast(attack.from, attack.to);
             if (resultCallback.hasHit()) {
                 PhysicalObject physicalObject = (PhysicalObject) resultCallback.collisionObject.getUserPointer();
-                Entity entity = finder.findEntityForComponent(physicalObject);
-                HealthComponent health = finder.findHealthComponent(entity);
+                Entity entity = entityFinder.findEntityForComponent(physicalObject);
+                HealthComponent health = componentFinder.findHealthComponent(entity);
                 health.currentHealth -= attack.damage;
             }
         }

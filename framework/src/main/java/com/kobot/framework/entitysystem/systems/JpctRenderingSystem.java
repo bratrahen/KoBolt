@@ -6,7 +6,6 @@ import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -79,26 +78,26 @@ public class JpctRenderingSystem extends System {
     }
 
     private void refreshCollectionOfRenderableEntities() {
-        Collection<Entity> entities = finder.getAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
+        Collection<Entity> entities = entityFinder.findAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
         for (Entity entity : entities) {
             if (!renderableEntities.contains(entity)) {
                 add(entity);
             }
         }
 
-        for (Entity entity : finder.findAllDisposed()) {
+        for (Entity entity : componentFinder.findAllDisposed()) {
             remove(entity);
         }
     }
 
     private void add(Entity entity) {
-        JpctRendererComponent component = (JpctRendererComponent)finder.findRenderer(entity);
+        JpctRendererComponent component = (JpctRendererComponent) componentFinder.findRenderer(entity);
         world.addObject(component.object3D);
         renderableEntities.add(entity);
     }
 
     private void remove(Entity entity) {
-        JpctRendererComponent component = (JpctRendererComponent)finder.findRenderer(entity);
+        JpctRendererComponent component = (JpctRendererComponent) componentFinder.findRenderer(entity);
         world.removeObject(component.object3D);
         renderableEntities.remove(entity);
     }

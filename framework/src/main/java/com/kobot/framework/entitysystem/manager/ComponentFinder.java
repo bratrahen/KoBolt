@@ -3,16 +3,12 @@ package com.kobot.framework.entitysystem.manager;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.*;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
-import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.Component;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
 import com.kobot.framework.entitysystem.components.api.modifiers.Timeable;
 import com.kobot.framework.simulation.PhysicalObject;
 import org.jetbrains.annotations.NotNull;
 
-import javax.media.j3d.PhysicalBody;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @SuppressWarnings("unchecked")
@@ -65,34 +61,6 @@ public class ComponentFinder {
         return (RendererComponent)findFirst(RendererComponent.class, entity);
     }
 
-    public Set<Entity> findAllEntitiesPossessingComponentOfClass(Class clazz) {
-        return entityManager.getAllEntitiesPossessingComponentOfClass(clazz);
-    }
-
-    @NotNull
-    public Entity findEntityForComponent(Component component) {
-        return entityManager.getEntitiesForComponent(component).iterator().next();
-    }
-
-    public Set<Entity> getAllEntitiesPossessingComponentOfClass(Class clazz) {
-        return entityManager.getAllEntitiesPossessingComponentOfClass(clazz);
-    }
-
-    public Set<Entity> findEnemies(Entity entity) {
-        Set<Entity> enemies = new HashSet<Entity>();
-
-        Team myTeam = findTeam(entity);
-        Collection<Entity> friendsAndFoes = entityManager.getAllEntitiesPossessingComponentOfClass(Team.class);
-        for (Entity friendOrFoe : friendsAndFoes) {
-            Team hisTeam = findTeam(friendOrFoe);
-            if (hisTeam != myTeam) {
-                enemies.add(friendOrFoe);
-            }
-        }
-
-        return  enemies;
-    }
-
     public Set<MaxLifeSpan> findAllMaxLifeSpans() {
         return findAll(MaxLifeSpan.class);
     }
@@ -111,5 +79,9 @@ public class ComponentFinder {
 
     public HealthComponent findHealthComponent(Entity entity) {
         return (HealthComponent) findFirst(HealthComponent.class, entity);
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }

@@ -4,6 +4,7 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubPrimitivesFactory;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.EntityFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.systems.PhysicsSystem;
 import org.junit.Before;
@@ -17,16 +18,18 @@ import static org.junit.Assert.*;
 public class JetEngineTest {
 
     private EntityManager manager;
-    private ComponentFinder finder;
+    private ComponentFinder componentFinder;
     private StubPrimitivesFactory factory;
     private PhysicsSystem simulation;
 
     private static final float GRAVITY = -10;
+    private EntityFinder entityFinder;
 
     @Before
     public void setUp() throws Exception {
         manager = new EntityManager();
-        finder = new ComponentFinder(manager);
+        componentFinder = new ComponentFinder(manager);
+        entityFinder = new EntityFinder(manager);
         factory = new StubPrimitivesFactory(manager);
         simulation = new PhysicsSystem(manager, GRAVITY, 1.0f);
     }
@@ -36,7 +39,7 @@ public class JetEngineTest {
     public void applyForce(){
         Entity sphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(50, 50, 0));
 
-        JetEngine jetEngine = new JetEngine(finder, new Vector3f(0, -GRAVITY, 0));
+        JetEngine jetEngine = new JetEngine(componentFinder, entityFinder, new Vector3f(0, -GRAVITY, 0));
         manager.addComponentToEntity(jetEngine, sphere);
 
         jetEngine.setThrustPercentage(100);
@@ -47,7 +50,7 @@ public class JetEngineTest {
             simulation.update(dt);
         }
 
-        Body body = finder.findPhysicalObject(sphere);
+        Body body = componentFinder.findPhysicalObject(sphere);
         assertEquals(new Vector3f(50, 50, 0), body.getPosition());
     }
 }

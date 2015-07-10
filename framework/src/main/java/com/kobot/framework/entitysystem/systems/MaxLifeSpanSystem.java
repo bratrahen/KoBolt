@@ -12,11 +12,11 @@ public class MaxLifeSpanSystem extends System {
 
     @Override
     public void update(float timeStepInSeconds) {
-        for (MaxLifeSpan maxLifeSpan : finder.findAllMaxLifeSpans()){
+        for (MaxLifeSpan maxLifeSpan : componentFinder.findAllMaxLifeSpans()){
             maxLifeSpan.update(timeStepInSeconds);
 
             if (maxLifeSpan.shouldDie()){
-                Entity entity = finder.findEntityForComponent(maxLifeSpan);
+                Entity entity = entityFinder.findEntityForComponent(maxLifeSpan);
                 entityManager.addComponentToEntity(new Dispose(), entity);
             }
         }

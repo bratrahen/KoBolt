@@ -13,7 +13,7 @@ public class DisposeSystem extends System {
 
     @Override
     public void update(float timeStepInSeconds) {
-        Set<Entity> entities = finder.findAllEntitiesPossessingComponentOfClass(Dispose.class);
+        Set<Entity> entities = entityFinder.findAllEntitiesPossessingComponentOfClass(Dispose.class);
         for (Entity entity : entities) {
             entityManager.removeEntity(entity);
         }

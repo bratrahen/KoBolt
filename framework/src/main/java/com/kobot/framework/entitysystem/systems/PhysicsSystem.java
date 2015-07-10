@@ -25,7 +25,7 @@ public class PhysicsSystem extends System {
 
     @Override
     public void update(float timestepInSecond) {
-        Set<Entity> entities = finder.findAllEntitiesPossessingComponentOfClass(Body.class);
+        Set<Entity> entities = entityFinder.findAllEntitiesPossessingComponentOfClass(Body.class);
 
         for (Entity entity : entities) {
             if (!simulatedEntities.contains(entity)) {
@@ -33,7 +33,7 @@ public class PhysicsSystem extends System {
             }
         }
 
-        for (Entity entity : finder.findAllDisposed()) {
+        for (Entity entity : componentFinder.findAllDisposed()) {
             remove(entity);
         }
 
@@ -41,12 +41,12 @@ public class PhysicsSystem extends System {
     }
 
     private void add(Entity entity) {
-        simulation.add(finder.findPhysicalObject(entity));
+        simulation.add(componentFinder.findPhysicalObject(entity));
         simulatedEntities.add(entity);
     }
 
     private void remove(Entity entity) {
-        simulation.remove(finder.findPhysicalObject(entity));
+        simulation.remove(componentFinder.findPhysicalObject(entity));
         simulatedEntities.remove(entity);
     }
 

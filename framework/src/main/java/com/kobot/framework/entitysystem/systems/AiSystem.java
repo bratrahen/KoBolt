@@ -10,7 +10,7 @@ public class AiSystem extends System {
 
     @Override
     public void update(float timeStepInSeconds) {
-        for (MotherShipAi ai : finder.findAllMotherShipsAi()) {
+        for (MotherShipAi ai : componentFinder.findAllMotherShipsAi()) {
             ai.update(timeStepInSeconds);
         }
     }

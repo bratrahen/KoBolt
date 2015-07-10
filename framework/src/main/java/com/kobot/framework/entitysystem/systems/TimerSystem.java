@@ -12,7 +12,7 @@ public class TimerSystem extends System {
 
     @Override
     public void update(float timeStepInSeconds) {
-        Set<Timeable> allTimeable = finder.findAllTimeable();
+        Set<Timeable> allTimeable = componentFinder.findAllTimeable();
         for (Timeable timeable : allTimeable) {
             timeable.update(timeStepInSeconds);
         }

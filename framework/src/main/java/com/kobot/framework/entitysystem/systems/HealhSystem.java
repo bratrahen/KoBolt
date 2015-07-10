@@ -13,10 +13,11 @@ public class HealhSystem extends System{
 
     @Override
     public void update(float timeStepInSeconds) {
-        Set<Entity> entities = finder.getAllEntitiesPossessingComponentOfClass(HealthComponent.class);
+//        Set<Entity> entities = componentFinder.getAllEntitiesPossessingComponentOfClass(HealthComponent.class);
+
 //
 //        for (Entity entity : entities) {
-//            HealthComponent health = (HealthComponent)finder.getComponentsForEntity(HealthComponent.class, entity);
+//            HealthComponent health = (HealthComponent)componentFinder.getComponentsForEntity(HealthComponent.class, entity);
 //            RendererComponent renderer = (RendererComponent)entityManager.getComponentsForEntity(JpctRendererComponent.class, entity);
 //
 //            if (!health.isAlive || health.maxHealth <= 0){

@@ -12,7 +12,7 @@ public class JetEnginesSystem extends System {
 
     @Override
     public void update(float timeStepInSeconds) {
-        Set<JetEngine> allJetEngines = finder.findAllJetEngines();
+        Set<JetEngine> allJetEngines = componentFinder.findAllJetEngines();
         for (JetEngine engine : allJetEngines) {
             engine.applyForce();
         }
