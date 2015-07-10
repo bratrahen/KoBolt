@@ -1,6 +1,7 @@
 package com.monsterwars;
 
 import com.kobot.framework.Game;
+import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.systems.*;
 import com.kobot.framework.entitysystem.systems.System;
@@ -24,11 +25,13 @@ public class MonsterWarsGame extends Game {
         EntityManager entityManager = new EntityManager();
 
         renderingSystem = new JpctRenderingSystem(entityManager);
+        PhysicsSystem physicsSystem = new PhysicsSystem(entityManager, GRAVITY, SCALE);
 
         systems.add(new MaxLifeSpanSystem(entityManager));
         systems.add(new AiSystem(entityManager));
+        systems.add(new WeaponSystem(entityManager, physicsSystem.createRayCaster()));
         systems.add(new JetEnginesSystem(entityManager));
-        systems.add(new PhysicsSystem(entityManager, GRAVITY, SCALE));
+        systems.add(physicsSystem);
         systems.add(new DisposeSystem(entityManager));
 
         ShipFactory factory = new JpctShipFactory(entityManager, SCALE);

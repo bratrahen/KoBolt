@@ -71,7 +71,7 @@ public class ComponentFinderTest {
     public void testFindGun() throws Exception {
         StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
-        RangedWeapon weapon = new RangedWeapon(1, 1, new StubPrimitivesFactory(entityManager));
+        RangedWeapon weapon = new RangedWeapon(1, 1);
         entityManager.addComponentToEntity(weapon, redSphere);
 
         Set<RangedWeapon> weapons = finder.findRangedWeapons(redSphere);

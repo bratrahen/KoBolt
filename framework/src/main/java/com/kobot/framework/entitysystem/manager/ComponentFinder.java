@@ -108,4 +108,8 @@ public class ComponentFinder {
     public Set<Timeable> findAllTimeable() {
         return findAll(Timeable.class);
     }
+
+    public HealthComponent findHealthComponent(Entity entity) {
+        return (HealthComponent) findFirst(HealthComponent.class, entity);
+    }
 }

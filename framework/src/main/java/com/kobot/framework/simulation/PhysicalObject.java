@@ -19,6 +19,8 @@ public class PhysicalObject implements Body {
     PhysicalObject(RigidBody rigidBody, float scale) {
         this.rigidBody = rigidBody;
         this.scale = scale;
+
+        this.rigidBody.setUserPointer(this);
     }
 
     /**

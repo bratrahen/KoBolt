@@ -4,6 +4,7 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.simulation.PhysicsSimulator;
+import com.kobot.framework.simulation.RayCaster;
 
 import javax.vecmath.Vector3f;
 import java.util.HashSet;
@@ -39,13 +40,17 @@ public class PhysicsSystem extends System {
         simulation.stepSimulation(timestepInSecond);
     }
 
+    private void add(Entity entity) {
+        simulation.add(finder.findPhysicalObject(entity));
+        simulatedEntities.add(entity);
+    }
+
     private void remove(Entity entity) {
         simulation.remove(finder.findPhysicalObject(entity));
         simulatedEntities.remove(entity);
     }
 
-    private void add(Entity entity) {
-        simulation.add(finder.findPhysicalObject(entity));
-        simulatedEntities.add(entity);
+    public RayCaster createRayCaster() {
+        return simulation.createRayCaster();
     }
 }

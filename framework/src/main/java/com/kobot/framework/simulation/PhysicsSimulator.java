@@ -10,16 +10,15 @@ import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSo
 
 import javax.vecmath.Vector3f;
 
-
 /**
- *  By default, Bullet assumes units to be in meters and time in seconds.
- *  Moving objects are assumed to be in the range of 0.05 units, about the size of a pebble, to 10, the size of a truck.
- *  If your objects are much bigger, and you use the default gravity, the simulation will appear in slow-motion.
- *  Try to scale down the objects to around 1 in meter units first.
- *  By scaling the world, you change dimensions and velocities appropriately so that they are back within the range
- *  that Bullet was designed for (0.05 to 10). Thus the simulation becomes more realistic.
- *  @see <a href="http://bulletphysics.org/mediawiki-1.5.8/index.php/Scaling_The_World">Scaling The World</a>
+ * By default, Bullet assumes units to be in meters and time in seconds.
+ * Moving objects are assumed to be in the range of 0.05 units, about the size of a pebble, to 10, the size of a truck.
+ * If your objects are much bigger, and you use the default gravity, the simulation will appear in slow-motion.
+ * Try to scale down the objects to around 1 in meter units first.
+ * By scaling the world, you change dimensions and velocities appropriately so that they are back within the range
+ * that Bullet was designed for (0.05 to 10). Thus the simulation becomes more realistic.
  *
+ * @see <a href="http://bulletphysics.org/mediawiki-1.5.8/index.php/Scaling_The_World">Scaling The World</a>
  */
 public class PhysicsSimulator {
     private final DynamicsWorld simulation;
@@ -68,11 +67,11 @@ public class PhysicsSimulator {
         return result;
     }
 
-    public void add(PhysicalObject object){
+    public void add(PhysicalObject object) {
         simulation.addRigidBody(object.getRigidBody());
     }
 
-    public void remove(PhysicalObject object){
+    public void remove(PhysicalObject object) {
         simulation.removeRigidBody(object.getRigidBody());
     }
 
@@ -83,12 +82,14 @@ public class PhysicsSimulator {
         simulation.stepSimulation(timestep, 1);
     }
 
-    public Vector3f getGravity(){
+    public Vector3f getGravity() {
         Vector3f gravity = new Vector3f();
         simulation.getGravity(gravity);
-        gravity.scale(1f/scale);
+        gravity.scale(1f / scale);
         return gravity;
     }
 
-
+    public RayCaster createRayCaster(){
+        return new RayCaster(simulation, scale);
+    }
 }
