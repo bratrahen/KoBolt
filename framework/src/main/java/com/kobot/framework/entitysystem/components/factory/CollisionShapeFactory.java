@@ -7,9 +7,6 @@ import com.bulletphysics.collision.shapes.SphereShape;
 import javax.vecmath.Vector3f;
 
 public class CollisionShapeFactory {
-    private CollisionShapeFactory() {
-    }
-
     public static CollisionShape createBoxShape(Vector3f size) {
         Vector3f halfExtends = new Vector3f();
         halfExtends.scale(0.5f, size);
