@@ -23,10 +23,3 @@ public class EventBusTest {
 class StubGameEvent_1 implements GameEvent{}
 class StubGameEvent_2 implements GameEvent{}
 
-class StubListener implements GameEventListener {
-    public int eventCount;
-
-    public void handle(GameEvent event) {
-        eventCount++;
-    }
-}

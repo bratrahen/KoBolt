@@ -2,6 +2,10 @@ package com.kobot.framework.entitysystem.systems;
 
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.MaxLifeSpan;
+import com.kobot.framework.entitysystem.eventbus.EventBus;
+import com.kobot.framework.entitysystem.eventbus.GameEvent;
+import com.kobot.framework.entitysystem.eventbus.StubListener;
+import com.kobot.framework.entitysystem.eventbus.events.RemoveEntityEvent;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.junit.Test;
@@ -18,15 +22,17 @@ public class MaxLifeSpanSystemTest {
         ComponentFinder finder = new ComponentFinder(manager);
 
         Entity entity = new Entity(1);
-        MaxLifeSpan maxLifeSpan = new MaxLifeSpan(1.0f);
+        manager.addComponentToEntity(new MaxLifeSpan(1.0f), entity);
 
-        manager.addComponentToEntity(maxLifeSpan, entity);
+        StubListener listener = new StubListener();
+        EventBus.addListener(listener, RemoveEntityEvent.class);
 
         MaxLifeSpanSystem maxLifeSpanSystem = new MaxLifeSpanSystem(manager);
         maxLifeSpanSystem.update(1.5f);
 
-        Set<Entity> allDisposed = finder.findAllDisposed();
-        assertEquals(1, allDisposed.size());
-        assertTrue(allDisposed.contains(entity));
+        assertEquals(1, listener.events.size());
+
+        GameEvent event = listener.events.iterator().next();
+        assertEquals(RemoveEntityEvent.class, event.getClass());
     }
 }

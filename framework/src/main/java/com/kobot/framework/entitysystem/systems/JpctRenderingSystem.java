@@ -2,16 +2,18 @@ package com.kobot.framework.entitysystem.systems;
 
 import com.kobot.framework.controls.GhostControls;
 import com.kobot.framework.entitysystem.Entity;
+import com.kobot.framework.entitysystem.eventbus.events.CreateEntityEvent;
+import com.kobot.framework.entitysystem.eventbus.EventBus;
+import com.kobot.framework.entitysystem.eventbus.GameEvent;
+import com.kobot.framework.entitysystem.eventbus.GameEventListener;
+import com.kobot.framework.entitysystem.eventbus.events.RemoveEntityEvent;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-public class JpctRenderingSystem extends System {
+public class JpctRenderingSystem extends System implements GameEventListener {
     static {
         configJpct();
     }
@@ -20,13 +22,14 @@ public class JpctRenderingSystem extends System {
     private final World world;
     private final GhostControls controls;
 
-    Set<Entity> renderableEntities = new HashSet<Entity>();
-
     public JpctRenderingSystem(EntityManager entityManager) {
         super(entityManager);
         buffer = createFrameBuffer();
         world = createWorld();
         controls = new GhostControls(world, buffer);
+
+        EventBus.addListener(this, CreateEntityEvent.class);
+        EventBus.addListener(this, RemoveEntityEvent.class);
     }
 
     private FrameBuffer createFrameBuffer() {
@@ -65,9 +68,6 @@ public class JpctRenderingSystem extends System {
 
     @Override
     public void update(float timeStepInSeconds) {
-        refreshCollectionOfRenderableEntities();
-
-
         controls.pollControls();
         controls.move(1);
         buffer.clear();
@@ -77,30 +77,23 @@ public class JpctRenderingSystem extends System {
         buffer.displayGLOnly();
     }
 
-    private void refreshCollectionOfRenderableEntities() {
-        Collection<Entity> entities = entityFinder.findAllEntitiesPossessingComponentOfClass(JpctRendererComponent.class);
-        for (Entity entity : entities) {
-            if (!renderableEntities.contains(entity)) {
-                add(entity);
-            }
-        }
-
-        for (Entity entity : componentFinder.findAllDisposed()) {
-            remove(entity);
-        }
-    }
-
     private void add(Entity entity) {
         JpctRendererComponent component = (JpctRendererComponent) componentFinder.findRenderer(entity);
         world.addObject(component.object3D);
-        renderableEntities.add(entity);
     }
 
     private void remove(Entity entity) {
         JpctRendererComponent component = (JpctRendererComponent) componentFinder.findRenderer(entity);
         world.removeObject(component.object3D);
-        renderableEntities.remove(entity);
     }
 
-
+    public void handle(GameEvent event) {
+        if (event instanceof CreateEntityEvent){
+            add(((CreateEntityEvent) event).entity);
+        }else if (event instanceof RemoveEntityEvent){
+            remove(((RemoveEntityEvent) event).entity);
+        } else {
+            throw new NotImplementedException();
+        }
+    }
 }

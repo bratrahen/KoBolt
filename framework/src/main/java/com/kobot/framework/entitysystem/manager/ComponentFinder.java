@@ -65,16 +65,8 @@ public class ComponentFinder {
         return findAll(MaxLifeSpan.class);
     }
 
-    public Set<Entity> findAllDisposed() {
-        return entityManager.getAllEntitiesPossessingComponentOfClass(Dispose.class);
-    }
-
     public Set<JetEngine> findAllJetEngines() {
         return findAll(JetEngine.class);
-    }
-
-    public Set<Timeable> findAllTimeable() {
-        return findAll(Timeable.class);
     }
 
     public HealthComponent findHealthComponent(Entity entity) {
@@ -83,5 +75,9 @@ public class ComponentFinder {
 
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    public Set<HealthComponent> findAllHealth() {
+        return findAll(HealthComponent.class);
     }
 }

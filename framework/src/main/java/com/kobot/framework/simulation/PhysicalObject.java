@@ -47,6 +47,10 @@ public class PhysicalObject implements Body {
         rigidBody.applyCentralForce(force);
     }
 
+    public boolean isInWorld(){
+        return rigidBody.isInWorld();
+    }
+
     /**
      * Package scope getter. To be used by PhysicsSimulator only.
      * @return

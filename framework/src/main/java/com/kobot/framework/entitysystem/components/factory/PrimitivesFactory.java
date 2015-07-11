@@ -2,9 +2,10 @@ package com.kobot.framework.entitysystem.components.factory;
 
 import com.bulletphysics.collision.shapes.CollisionShape;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.MaxLifeSpan;
-import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
+import com.kobot.framework.entitysystem.eventbus.EventBus;
+import com.kobot.framework.entitysystem.eventbus.events.CreateEntityEvent;
+import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.simulation.PhysicalObject;
 import com.kobot.framework.simulation.PhysicalObjectBuilder;
 import com.kobot.framework.simulation.PhysicalObjectFactory;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.vecmath.Vector3f;
 import java.awt.*;
 
-public abstract class PrimitivesFactory extends PhysicalObjectFactory{
+public abstract class PrimitivesFactory extends PhysicalObjectFactory {
     public static final float MASS_OF_STATIC_OBJECT = 0.0f;
 
     public final EntityManager entityManager;
@@ -23,15 +24,9 @@ public abstract class PrimitivesFactory extends PhysicalObjectFactory{
         this.entityManager = entityManager;
     }
 
-    @NotNull
-    protected abstract RendererComponent createCubeRenderer(float sideInMeters, @NotNull Color color);
-
-    @NotNull
-    protected abstract RendererComponent createSphereRenderer(float radiusInMeters, Color color);
-
     /**
-     * @param radius measured in meters [m]
-     * @param color color of the cube
+     * @param radius   measured in meters [m]
+     * @param color    color of the cube
      * @param position world coordinated [x, y, z] measured in meters [m]
      * @return
      */
@@ -41,9 +36,9 @@ public abstract class PrimitivesFactory extends PhysicalObjectFactory{
     }
 
     /**
-     * @param mass measured in kilograms [kg]
-     * @param radius measured in meters [m]
-     * @param color color of the cube
+     * @param mass     measured in kilograms [kg]
+     * @param radius   measured in meters [m]
+     * @param color    color of the cube
      * @param position world coordinated [x, y, z] measured in meters [m]
      * @return
      */
@@ -60,12 +55,16 @@ public abstract class PrimitivesFactory extends PhysicalObjectFactory{
         entityManager.addComponentToEntity(renderer, entity);
         entityManager.addComponentToEntity(physicalObject, entity);
 
+        EventBus.raiseEvent(new CreateEntityEvent(entity));
         return entity;
     }
 
+    @NotNull
+    protected abstract RendererComponent createSphereRenderer(float radiusInMeters, Color color);
+
     /**
-     * @param size measured in meters [m]
-     * @param color color of the cube
+     * @param size     measured in meters [m]
+     * @param color    color of the cube
      * @param position world coordinated [x, y, z] measured in meters [m]
      * @return
      */
@@ -75,9 +74,9 @@ public abstract class PrimitivesFactory extends PhysicalObjectFactory{
     }
 
     /**
-     * @param mass measured in kilograms [kg]
-     * @param size measured in meters [m]
-     * @param color color of the cube
+     * @param mass     measured in kilograms [kg]
+     * @param size     measured in meters [m]
+     * @param color    color of the cube
      * @param position world coordinated [x, y, z] measured in meters [m]
      * @return
      */
@@ -93,13 +92,11 @@ public abstract class PrimitivesFactory extends PhysicalObjectFactory{
         Entity entity = entityManager.createEntity();
         entityManager.addComponentToEntity(renderer, entity);
         entityManager.addComponentToEntity(physicalObject, entity);
+
+        EventBus.raiseEvent(new CreateEntityEvent(entity));
         return entity;
     }
 
-    public Entity createCannonBall(Vector3f start) {
-        Entity cannonBall = createDynamicSphere(10, 1, Color.GREEN, start);
-        entityManager.addComponentToEntity(new MaxLifeSpan(60.0f), cannonBall);
-        return cannonBall;
-    }
-
+    @NotNull
+    protected abstract RendererComponent createCubeRenderer(float sideInMeters, @NotNull Color color);
 }

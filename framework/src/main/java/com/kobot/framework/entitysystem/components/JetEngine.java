@@ -1,8 +1,5 @@
 package com.kobot.framework.entitysystem.components;
 
-import com.bulletphysics.linearmath.QuaternionUtil;
-import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.components.api.basic.UniqueComponent;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityFinder;
@@ -10,32 +7,28 @@ import com.kobot.framework.entitysystem.manager.EntityFinder;
 import javax.vecmath.Vector3f;
 
 public class JetEngine implements UniqueComponent {
+    private final float maxThrust;
+    private float percentage;
+    private Vector3f direction = new Vector3f();
 
-    private final ComponentFinder componentFinder;
-    private final EntityFinder entityFinder;
-    private final Vector3f maxThrustForce;
-    private float scale;
-
-    public JetEngine(ComponentFinder componentFinder, EntityFinder entityFinder, Vector3f maxThrustForce) {
-        this.componentFinder = componentFinder;
-        this.entityFinder = entityFinder;
-        this.maxThrustForce = maxThrustForce;
+    public JetEngine(float maxThrust) {
+        this.maxThrust = Math.abs(maxThrust);
+        this.percentage = 1f;
     }
 
-    public void setThrustPercentage(int percent) {
-        scale = Math.max(0, percent);
-        scale = Math.min(scale, 100);
-        scale /= 100f;
+    public void setThrustPercentage(float percentage) {
+        this.percentage = Math.max(0, percentage);
+        this.percentage = Math.min(percentage, 1);
     }
 
-    public void applyForce() {
-        Entity entity = entityFinder.findEntityForComponent(this);
-        Body body = componentFinder.findPhysicalObject(entity);
+    public void setThrustDirection(Vector3f direction) {
+        this.direction = new Vector3f(direction);
+        this.direction.normalize();
+    }
 
-        Vector3f force = new Vector3f();
-        QuaternionUtil.quatRotate(body.getRotation(), maxThrustForce, force);
-        force.scale(scale);
-
-        body.applyCentralForce(force);
+    public Vector3f getThrust(){
+        Vector3f thrustForce = new Vector3f(direction);
+        thrustForce.scale(-maxThrust * percentage);
+        return thrustForce;
     }
 }

@@ -17,7 +17,6 @@ public class WeaponSystemTest {
     @Test
     public void testHandle() throws Exception {
         EntityManager manager = new EntityManager();
-        ComponentFinder finder = new ComponentFinder(manager);
         StubPrimitivesFactory factory = new StubPrimitivesFactory(manager);
 
         PhysicsSystem physicsSystem = new PhysicsSystem(manager, -10f, 1f);
