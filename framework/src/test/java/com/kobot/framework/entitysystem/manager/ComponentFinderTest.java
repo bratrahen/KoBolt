@@ -58,7 +58,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindSinglePhysicalBody() throws Exception {
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, 1.0f);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
@@ -71,7 +71,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindGun() throws Exception {
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, 1.0f);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         RangedWeapon weapon = new RangedWeapon(1, 1);
         entityManager.addComponentToEntity(weapon, redSphere);
@@ -83,7 +83,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindAllMotherShipsAi() throws Exception {
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, 1.0f);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
         Entity blueSphere = factory.createDynamicSphere(1, 1, Color.BLUE, new Vector3f(10, 0, 0));
 
@@ -102,7 +102,7 @@ public class ComponentFinderTest {
 
     @Test
     public void testFindRenderers() throws Exception {
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, 1.0f);
         Entity redSphere = factory.createDynamicSphere(1, 1, Color.RED, new Vector3f(0, 0, 0));
 
         Set<RendererComponent> renderers = finder.findRenderers(redSphere);

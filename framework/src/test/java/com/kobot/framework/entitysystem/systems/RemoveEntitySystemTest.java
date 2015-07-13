@@ -21,7 +21,7 @@ public class RemoveEntitySystemTest {
         EntityManager entityManager = new EntityManager();
         EntityFinder entityFinder = new EntityFinder(entityManager);
 
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, 1.0f);
         Entity sphere = factory.createStaticSphere(1, Color.GREEN, new Vector3f());
 
         RemoveEntitySystem removeEntitySystem = new RemoveEntitySystem(entityManager);

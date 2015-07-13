@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 
 public class StubPrimitivesFactory extends PrimitivesFactory {
-    public StubPrimitivesFactory(EntityManager entityManager) {
-        super(entityManager, 1.0f);
+    public StubPrimitivesFactory(EntityManager entityManager, float scale) {
+        super(entityManager, scale);
     }
 
     @NotNull

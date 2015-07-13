@@ -6,8 +6,6 @@ import com.kobot.framework.entitysystem.components.JetEngine;
 import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
-import com.kobot.framework.entitysystem.systems.JetEnginesSystem;
-import com.kobot.framework.entitysystem.systems.PhysicsSystem;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +26,7 @@ public class JetEngineSystemTest {
     public void setUp() throws Exception {
         manager = new EntityManager();
         componentFinder = new ComponentFinder(manager);
-        factory = new StubPrimitivesFactory(manager);
+        factory = new StubPrimitivesFactory(manager, 1.0f);
         simulation = new PhysicsSystem(manager, GRAVITY, 1.0f);
     }
 

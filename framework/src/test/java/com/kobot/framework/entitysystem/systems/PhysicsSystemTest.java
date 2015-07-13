@@ -17,7 +17,7 @@ public class PhysicsSystemTest {
     @Test
     public void createEvent(){
         EntityManager entityManager = new EntityManager();
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, 1.0f);
         PhysicsSystem physicsSystem = new PhysicsSystem(entityManager, new Vector3f(0, -10, 0), 1f);
 
         Entity sphere = factory.createStaticSphere(1, Color.RED, new Vector3f());

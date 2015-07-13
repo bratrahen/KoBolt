@@ -4,7 +4,6 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubPrimitivesFactory;
 import com.kobot.framework.entitysystem.components.HealthComponent;
 import com.kobot.framework.entitysystem.eventbus.events.AttackEvent;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class WeaponSystemTest {
     @Test
     public void testHandle() throws Exception {
         EntityManager manager = new EntityManager();
-        StubPrimitivesFactory factory = new StubPrimitivesFactory(manager);
+        StubPrimitivesFactory factory = new StubPrimitivesFactory(manager, 1.0f);
 
         PhysicsSystem physicsSystem = new PhysicsSystem(manager, -10f, 1f);
         WeaponSystem weaponSystem = new WeaponSystem(manager, physicsSystem.createRayCaster());
