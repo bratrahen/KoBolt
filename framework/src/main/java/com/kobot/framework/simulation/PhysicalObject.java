@@ -7,6 +7,7 @@ import com.kobot.framework.entitysystem.components.api.Body;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
+import java.util.Vector;
 
 public class PhysicalObject implements Body {
     private final RigidBody rigidBody;
@@ -45,6 +46,20 @@ public class PhysicalObject implements Body {
         Vector3f scaledForce = new Vector3f(force);
         scaledForce.scale(scale);
         rigidBody.applyCentralForce(force);
+    }
+
+    public Vector3f getLinearVelocity(){
+        Vector3f result = new Vector3f();
+        rigidBody.getLinearVelocity(result);
+        result.scale(1f/scale);
+        return result;
+    }
+
+    public Vector3f getAngularVelocity(){
+        Vector3f result = new Vector3f();
+        rigidBody.getAngularVelocity(result);
+        result.scale(1f/scale);
+        return result;
     }
 
     public boolean isInWorld(){
