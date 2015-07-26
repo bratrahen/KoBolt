@@ -4,6 +4,8 @@ package com.monsterwars;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.Team;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
+import com.kobot.framework.entitysystem.eventbus.EventBus;
+import com.kobot.framework.entitysystem.eventbus.events.CreateEntityEvent;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.simulation.PhysicalObject;
 import com.kobot.framework.simulation.PhysicalObjectBuilder;
@@ -105,6 +107,7 @@ public abstract class ShipFactory extends PhysicalObjectFactory{
         entityManager.addComponentToEntity(physicalObject, entity);
         entityManager.addComponentToEntity(renderer, entity);
 
+        EventBus.raiseEvent(new CreateEntityEvent(entity));
         return entity;
     }
 }
