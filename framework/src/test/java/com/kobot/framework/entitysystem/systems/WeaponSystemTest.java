@@ -18,7 +18,7 @@ public class WeaponSystemTest {
         EntityManager manager = new EntityManager();
         StubPrimitivesFactory factory = new StubPrimitivesFactory(manager, 1.0f);
 
-        PhysicsSystem physicsSystem = new PhysicsSystem(manager, -10f, 1f);
+        PhysicsSystem physicsSystem = new PhysicsSystem(manager, 0f, 1f);
         WeaponSystem weaponSystem = new WeaponSystem(manager, physicsSystem.createRayCaster());
 
         Entity sphere = factory.createDynamicSphere(1f, 1f, Color.RED, new Vector3f(5f, 0f, 0f));
@@ -26,8 +26,8 @@ public class WeaponSystemTest {
         manager.addComponentToEntity(health, sphere);
 
         physicsSystem.update(1f);
-
         weaponSystem.handle(new AttackEvent(new Vector3f(), new Vector3f(10f, 0, 0), 10f));
+
         assertEquals(90, health.currentHealth);
     }
 }
