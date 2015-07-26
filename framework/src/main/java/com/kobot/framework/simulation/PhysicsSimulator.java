@@ -79,7 +79,8 @@ public class PhysicsSimulator {
      * @param timestep measured in seconds [s]
      */
     public void stepSimulation(float timestep) {
-        simulation.stepSimulation(timestep, 1);
+        final int DISABLE_STEP_SUBDIVIDING = 0;
+        simulation.stepSimulation(timestep, DISABLE_STEP_SUBDIVIDING);
     }
 
     public Vector3f getGravity() {
