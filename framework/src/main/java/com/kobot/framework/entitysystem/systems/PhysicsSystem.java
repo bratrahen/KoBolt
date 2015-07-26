@@ -1,7 +1,6 @@
 package com.kobot.framework.entitysystem.systems;
 
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.components.api.Body;
 import com.kobot.framework.entitysystem.eventbus.EventBus;
 import com.kobot.framework.entitysystem.eventbus.GameEvent;
 import com.kobot.framework.entitysystem.eventbus.GameEventListener;
@@ -17,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PhysicsSystem extends System implements GameEventListener {
-    private Set<Entity> simulatedEntities = new HashSet<Entity>();
     private PhysicsSimulator simulation;
     private Set<GameEvent> eventQueue = new HashSet<GameEvent>();
 
@@ -54,12 +52,10 @@ public class PhysicsSystem extends System implements GameEventListener {
 
     private void add(Entity entity) {
         simulation.add(componentFinder.findPhysicalObject(entity));
-        simulatedEntities.add(entity);
     }
 
     private void remove(Entity entity) {
         simulation.remove(componentFinder.findPhysicalObject(entity));
-        simulatedEntities.remove(entity);
     }
 
     public RayCaster createRayCaster() {
