@@ -1,7 +1,7 @@
 package com.kobot.framework.simulation;
 
 import com.bulletphysics.linearmath.DefaultMotionState;
-import com.bulletphysics.linearmath.MatrixUtil;
+import com.kobot.framework.entitysystem.Utilities;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,8 +11,6 @@ import javax.vecmath.Vector3f;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class PhysicalObjectTest {
@@ -39,21 +37,9 @@ public class PhysicalObjectTest {
         builder.setOrientation(orientation);
         PhysicalObject object = builder.build(new DefaultMotionState());
 
-        Matrix3f R_expected = new Matrix3f();
-        MatrixUtil.setEulerZYX(R_expected, orientation.x, orientation.y, orientation.z);
+        Matrix3f R_expected = Utilities.rotationMatrixFromEulerZYX(orientation);
+        Matrix3f R_actual = Utilities.rotationMatrixFromEulerZYX(object.getOrientation());
 
-        Vector3f actual = object.getOrientation();
-        Matrix3f R_actual = new Matrix3f();
-        MatrixUtil.setEulerZYX(R_actual, actual.x, actual.y, actual.z);
-
-        assertMatrixEquals("Rotation matrices not equal", R_expected, R_actual, 0.00001);
-    }
-
-    private void assertMatrixEquals(String msg, Matrix3f expected, Matrix3f actual, double delta){
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                assertEquals(msg, expected.getElement(i,j), actual.getElement(i,j), delta);
-            }
-        }
+        Utilities.assertMatrixEquals("Rotation matrices not equal", R_expected, R_actual, 0.00001);
     }
 }
