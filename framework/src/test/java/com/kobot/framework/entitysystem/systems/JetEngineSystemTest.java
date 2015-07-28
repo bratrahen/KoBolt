@@ -4,7 +4,7 @@ import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubPrimitivesFactory;
 import com.kobot.framework.entitysystem.components.JetEngine;
 import com.kobot.framework.entitysystem.components.api.Body;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.BaseComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,14 +18,14 @@ public class JetEngineSystemTest {
 
     private static final float GRAVITY = -10;
     private EntityManager manager;
-    private ComponentFinder componentFinder;
+    private BaseComponentFinder componentFinder;
     private StubPrimitivesFactory factory;
     private PhysicsSystem simulation;
 
     @Before
     public void setUp() throws Exception {
         manager = new EntityManager();
-        componentFinder = new ComponentFinder(manager);
+        componentFinder = new BaseComponentFinder(manager);
         factory = new StubPrimitivesFactory(manager, 1.0f);
         simulation = new PhysicsSystem(manager, GRAVITY, 1.0f);
     }

@@ -3,31 +3,29 @@ package com.kobot.framework.entitysystem.manager;
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.components.*;
 import com.kobot.framework.entitysystem.components.ai.MotherShipAi;
-import com.kobot.framework.entitysystem.components.api.basic.Component;
 import com.kobot.framework.entitysystem.components.api.RendererComponent;
-import com.kobot.framework.entitysystem.components.api.modifiers.Timeable;
 import com.kobot.framework.simulation.PhysicalObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
 @SuppressWarnings("unchecked")
-public class ComponentFinder {
+public class BaseComponentFinder {
     private final EntityManager entityManager;
 
-    public ComponentFinder(EntityManager entityManager) {
+    public BaseComponentFinder(EntityManager entityManager) {
         this.entityManager = entityManager;
 }
 
-    private Object findFirst(Class clazz, Entity entity) {
+    protected Object findFirst(Class clazz, Entity entity) {
         return entityManager.getComponentsForEntity(clazz, entity).iterator().next();
     }
 
-    private Set find(Class clazz, Entity entity) {
+    protected Set find(Class clazz, Entity entity) {
         return (Set) entityManager.getComponentsForEntity(clazz, entity);
     }
 
-    private Set findAll(Class clazz) {
+    protected Set findAll(Class clazz) {
         return (Set) entityManager.getAllComponentsOfClass(clazz);
     }
 

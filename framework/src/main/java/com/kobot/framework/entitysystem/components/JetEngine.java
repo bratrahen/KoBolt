@@ -1,8 +1,6 @@
 package com.kobot.framework.entitysystem.components;
 
 import com.kobot.framework.entitysystem.components.api.basic.UniqueComponent;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
-import com.kobot.framework.entitysystem.manager.EntityFinder;
 
 import javax.vecmath.Vector3f;
 

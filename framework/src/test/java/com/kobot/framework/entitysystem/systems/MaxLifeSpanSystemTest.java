@@ -6,12 +6,11 @@ import com.kobot.framework.entitysystem.eventbus.EventBus;
 import com.kobot.framework.entitysystem.eventbus.GameEvent;
 import com.kobot.framework.entitysystem.eventbus.StubListener;
 import com.kobot.framework.entitysystem.eventbus.events.RemoveEntityEvent;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.BaseComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import java.util.Set;
 
 
 public class MaxLifeSpanSystemTest {
@@ -19,7 +18,7 @@ public class MaxLifeSpanSystemTest {
     @Test
     public void update_() throws Exception {
         EntityManager manager = new EntityManager();
-        ComponentFinder finder = new ComponentFinder(manager);
+        BaseComponentFinder finder = new BaseComponentFinder(manager);
 
         Entity entity = new Entity(1);
         manager.addComponentToEntity(new MaxLifeSpan(1.0f), entity);

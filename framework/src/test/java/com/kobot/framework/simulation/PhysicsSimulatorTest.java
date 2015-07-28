@@ -2,10 +2,8 @@ package com.kobot.framework.simulation;
 
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubPrimitivesFactory;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.BaseComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
-import com.kobot.framework.entitysystem.systems.PhysicsSystem;
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.vecmath.Vector3f;
@@ -27,7 +25,7 @@ public class PhysicsSimulatorTest {
         StubPrimitivesFactory factory = new StubPrimitivesFactory(entityManager, SCALE);
 
         Entity sphere = factory.createDynamicSphere(MASS, RADIUS, Color.RED, START_POSITION);
-        PhysicalObject physicalSphere = new ComponentFinder(entityManager).findPhysicalObject(sphere);
+        PhysicalObject physicalSphere = new BaseComponentFinder(entityManager).findPhysicalObject(sphere);
 
         PhysicsSimulator simulator = new PhysicsSimulator(GRAVITY, SCALE);
         simulator.add(physicalSphere);

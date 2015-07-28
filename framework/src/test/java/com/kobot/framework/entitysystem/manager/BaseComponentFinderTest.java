@@ -18,15 +18,15 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class ComponentFinderTest {
+public class BaseComponentFinderTest {
 
     private EntityManager entityManager;
-    private ComponentFinder finder;
+    private BaseComponentFinder finder;
 
     @Before
     public void setUp() throws Exception {
         entityManager = new EntityManager();
-        finder = new ComponentFinder(entityManager);
+        finder = new BaseComponentFinder(entityManager);
     }
 
     @Ignore

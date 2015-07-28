@@ -11,11 +11,11 @@ import java.util.Set;
 
 public class EntityFinder {
     private final EntityManager entityManager;
-    private final ComponentFinder componentFinder;
+    private final BaseComponentFinder componentFinder;
 
     public EntityFinder(EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.componentFinder = new ComponentFinder(entityManager);
+        this.componentFinder = new BaseComponentFinder(entityManager);
     }
 
     public Set<Entity> findAllEntitiesPossessingComponentOfClass(Class clazz) {

@@ -2,7 +2,7 @@ package com.kobot.framework.entitysystem.systems;
 
 import com.kobot.framework.entitysystem.Entity;
 import com.kobot.framework.entitysystem.StubPrimitivesFactory;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.entitysystem.manager.BaseComponentFinder;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.simulation.PhysicalObject;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class PhysicsSystemTest {
         Entity sphere = factory.createStaticSphere(1, Color.RED, new Vector3f());
         physicsSystem.update(1f);
 
-        PhysicalObject object = new ComponentFinder(entityManager).findPhysicalObject(sphere);
+        PhysicalObject object = new BaseComponentFinder(entityManager).findPhysicalObject(sphere);
         assertTrue(object.isInWorld());
     }
 }
