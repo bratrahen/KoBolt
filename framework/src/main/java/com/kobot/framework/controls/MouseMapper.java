@@ -10,8 +10,8 @@ public class MouseMapper {
 
     private int height = 0;
 
-    public MouseMapper(@NotNull FrameBuffer buffer) {
-        height = buffer.getOutputHeight();
+    public MouseMapper(int outputHeight) {
+        height = outputHeight;
         init();
     }
 

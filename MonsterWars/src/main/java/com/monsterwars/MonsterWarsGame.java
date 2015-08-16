@@ -1,13 +1,13 @@
 package com.monsterwars;
 
 import com.kobot.framework.Game;
-import com.kobot.framework.entitysystem.Utilities;
-import com.kobot.framework.entitysystem.manager.ComponentFinder;
+import com.kobot.framework.controls.camera.commands.*;
 import com.kobot.framework.entitysystem.manager.EntityManager;
 import com.kobot.framework.entitysystem.systems.*;
 import com.kobot.framework.entitysystem.systems.System;
 
 import javax.vecmath.Vector3f;
+import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +21,7 @@ public class MonsterWarsGame extends Game {
 
     public static void main(String[] args) {
         MonsterWarsGame game = new MonsterWarsGame();
+        game.bindKeys();
         game.run();
     }
 
@@ -61,9 +62,17 @@ public class MonsterWarsGame extends Game {
 //        factory.createTaiidanCarrier(new Vector3f(-1600, 0, 0), new Vector3f(0, (float)Math.PI, 0), RED_TEAM);
     }
 
+    private void bindKeys() {
+        getControls().bindKey(KeyEvent.VK_W, new MoveCameraForwardCommand(renderingSystem.getCamera()));
+        getControls().bindKey(KeyEvent.VK_S, new MoveCameraBackwardCommand(renderingSystem.getCamera()));
+        getControls().bindKey(KeyEvent.VK_A, new MoveCameraLeftCommand(renderingSystem.getCamera()));
+        getControls().bindKey(KeyEvent.VK_D, new MoveCameraRightCommand(renderingSystem.getCamera()));
+        getControls().bindMouseOnMove(new RotateCameraCommand(renderingSystem.getCamera()));
+    }
+
     @Override
     protected boolean shouldQuit() {
-        return false;
+        return getControls().shouldQuit();
     }
 
     @Override

@@ -1,14 +1,15 @@
 package com.kobot.framework.entitysystem.systems;
 
-import com.kobot.framework.controls.GhostControls;
+import com.kobot.framework.controls.camera.Camera;
+import com.kobot.framework.objects.graphic.jpct.JpctCamera;
 import com.kobot.framework.entitysystem.Entity;
-import com.kobot.framework.entitysystem.eventbus.events.CreateEntityEvent;
+import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.kobot.framework.entitysystem.eventbus.EventBus;
 import com.kobot.framework.entitysystem.eventbus.GameEvent;
 import com.kobot.framework.entitysystem.eventbus.GameEventListener;
+import com.kobot.framework.entitysystem.eventbus.events.CreateEntityEvent;
 import com.kobot.framework.entitysystem.eventbus.events.RemoveEntityEvent;
 import com.kobot.framework.entitysystem.manager.EntityManager;
-import com.kobot.framework.entitysystem.components.JpctRendererComponent;
 import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -20,13 +21,13 @@ public class JpctRenderingSystem extends System implements GameEventListener {
 
     private final FrameBuffer buffer;
     private final World world;
-    private final GhostControls controls;
+    private final Camera camera;
 
     public JpctRenderingSystem(EntityManager entityManager) {
         super(entityManager);
         buffer = createFrameBuffer();
         world = createWorld();
-        controls = new GhostControls(world, buffer);
+        camera = new JpctCamera(world, buffer);
 
         EventBus.addListener(this, CreateEntityEvent.class);
         EventBus.addListener(this, RemoveEntityEvent.class);
@@ -68,8 +69,6 @@ public class JpctRenderingSystem extends System implements GameEventListener {
 
     @Override
     public void update(float timeStepInSeconds) {
-        controls.pollControls();
-        controls.move(1);
         buffer.clear();
         world.renderScene(buffer);
         world.draw(buffer);
@@ -95,5 +94,9 @@ public class JpctRenderingSystem extends System implements GameEventListener {
         } else {
             throw new NotImplementedException();
         }
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

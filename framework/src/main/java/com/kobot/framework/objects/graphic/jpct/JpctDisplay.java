@@ -1,8 +1,7 @@
 package com.kobot.framework.objects.graphic.jpct;
 
-import com.kobot.framework.objects.physics.GameObject;
-import com.kobot.framework.controls.GhostControls;
 import com.kobot.framework.objects.graphic.common.Display;
+import com.kobot.framework.objects.physics.GameObject;
 import com.threed.jpct.*;
 import com.threed.jpct.util.Light;
 import org.jetbrains.annotations.NotNull;
@@ -14,12 +13,10 @@ public class JpctDisplay implements Display {
 
     private final FrameBuffer buffer;
     private final World world;
-    private final GhostControls controls;
 
     public JpctDisplay() {
         buffer = createFrameBuffer();
         world = createWorld();
-        controls = new GhostControls(world, buffer);
     }
 
     private FrameBuffer createFrameBuffer() {
@@ -66,9 +63,6 @@ public class JpctDisplay implements Display {
     }
 
     public void render() {
-        controls.pollControls();
-        controls.move(1);
-
         buffer.clear();
         world.renderScene(buffer);
         world.draw(buffer);
