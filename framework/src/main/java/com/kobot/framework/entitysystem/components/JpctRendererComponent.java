@@ -9,12 +9,18 @@ import com.threed.jpct.Object3D;
 
 import javax.vecmath.Vector3f;
 
+import static com.kobot.framework.entitysystem.Utilities.*;
+
 public class JpctRendererComponent implements RendererComponent {
 
     public final Object3D object3D;
 
     public JpctRendererComponent(Object3D object3D) {
         this.object3D = object3D;
+
+        object3D.rotateY(PI);
+        object3D.rotateZ(-PI/2f);
+        object3D.rotateMesh();
     }
 
     public MotionState createMotionState() {

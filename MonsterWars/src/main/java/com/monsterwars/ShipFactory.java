@@ -93,14 +93,10 @@ public abstract class ShipFactory extends PhysicalObjectFactory{
      * @param renderer ship's renderer
      * @return Entity
      */
-    private Entity createShip(float mass, Vector3f position, Vector3f orientation, RendererComponent renderer) {
-        Vector3f defaultOrientation = new Vector3f(0, PI, PI/2);
-        Vector3f sumOrientation = new Vector3f(defaultOrientation);
-        sumOrientation.add(orientation);
-
+    protected Entity createShip(float mass, Vector3f position, Vector3f orientation, RendererComponent renderer) {
         PhysicalObjectBuilder builder = createBuilder();
         builder.setShape(renderer.getBoundingBox());
-        builder.setMass(mass).setPosition(position).setOrientation(sumOrientation);
+        builder.setMass(mass).setPosition(position).setOrientation(orientation);
         PhysicalObject physicalObject = builder.build(renderer.createMotionState());
 
         Entity entity = entityManager.createEntity();
