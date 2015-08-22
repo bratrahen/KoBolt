@@ -33,11 +33,11 @@ public class PhysicalObject implements Body {
      * Point of application is center of gravity.
      * Example:
      * Impulse 10 [N] applied to object of mass of 2 [kg] would immediately increase object's speed by 5 [m/s]
-     * @param impulse measured in Newtons [N]
+     * @param impulse measured in [N * s]
      */
     public void applyCentralImpulse(Vector3f impulse) {
         Vector3f scaledImpulse = new Vector3f(impulse);
-        scaledImpulse.scale(scale);
+        scaledImpulse.scale(scale); //[m/s^2 * s]
         rigidBody.applyCentralImpulse(scaledImpulse);
         rigidBody.activate();
     }
@@ -48,25 +48,38 @@ public class PhysicalObject implements Body {
      */
     public void applyCentralForce(Vector3f force) {
         Vector3f scaledForce = new Vector3f(force);
-        scaledForce.scale(scale);
+        scaledForce.scale(scale); //[m/s^2]
         rigidBody.applyCentralForce(force);
         rigidBody.activate();
     }
 
-//    /**
-//     * Impulse is applied immediately - it is time independent.
-//     * The result is an equivalent of applying torque by 1 second.
-//     * @param torque measured in Newton Metre [N?m]
-//     */
-//    public void applyTorqueImpulse(Vector3f torque) {
-//       scale(sclae*scale)
-//       rigidBody.applyTorqueImpulse(torque);
-//    }
+    /**
+     *
+     * @param torque measured in Newton Metre [N * m]
+     */
+    public void applyTorque(Vector3f torque) {
+        Vector3f scaledTorque = new Vector3f(torque);
+        scaledTorque.scale(scale * scale); // [m/s^2 * m]
+        rigidBody.applyTorqueImpulse(torque);
+        rigidBody.activate();
+    }
+
+    /**
+     * Impulse is applied immediately - it is time independent.
+     * The result is an equivalent of applying torque by 1 second.
+     * @param torqueImpulse measured in [N*m*s]
+     */
+    public void applyTorqueImpulse(Vector3f torqueImpulse) {
+        Vector3f scaledImpulse = new Vector3f(torqueImpulse);
+        scaledImpulse.scale(scale * scale); // [m/s^2 * m * s]
+        rigidBody.applyTorqueImpulse(scaledImpulse);
+        rigidBody.activate();
+    }
 
     public Vector3f getLinearVelocity() {
         Vector3f result = new Vector3f();
         rigidBody.getLinearVelocity(result);
-        result.scale(1f / scale);
+        result.scale(1f / scale); //[m/s]
         return result;
     }
 

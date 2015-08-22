@@ -7,7 +7,7 @@ import com.kobot.framework.simulation.PhysicalObject;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
 
-public class AccelerateCommand extends Command {
+public class LinearAccelerationCommand extends Command {
     private final PhysicalObject physicalObject;
     private final Vector3f impulseInWorldSpace;
 
@@ -16,7 +16,8 @@ public class AccelerateCommand extends Command {
      * @param impulseInWorldSpace measured in Newtons [N]
      * @see com.kobot.framework.simulation.PhysicalObject#applyCentralImpulse
      */
-    public AccelerateCommand(PhysicalObject physicalObject, Vector3f impulseInWorldSpace) {
+    public LinearAccelerationCommand(PhysicalObject physicalObject, Vector3f impulseInWorldSpace) {
+        super();
         this.physicalObject = physicalObject;
         this.impulseInWorldSpace = impulseInWorldSpace;
     }
