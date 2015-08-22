@@ -3,6 +3,7 @@ package com.kobot.framework.objects.graphic.jpct;
 import com.bulletphysics.linearmath.MatrixUtil;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
+import com.kobot.framework.entitysystem.Utilities;
 import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.SimpleVector;
@@ -10,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
+
+import static com.kobot.framework.entitysystem.Utilities.PI;
 
 public class JpctMotionState extends MotionState{
 
@@ -36,8 +39,9 @@ public class JpctMotionState extends MotionState{
         SimpleVector t_view = object3D.getTransformedCenter();
         tran.origin.set(t_view.x, -t_view.y, -t_view.z); // not sure if translation or position
 
-        Matrix R_view = object3D.getRotationMatrix();
-        MatrixUtil.setFromOpenGLSubMatrix(tran.basis, R_view.getDump());
+        Matrix R = object3D.getRotationMatrix();
+        R.rotateX(-PI);
+        MatrixUtil.setFromOpenGLSubMatrix(tran.basis, R.getDump());
     }
 
     private void setGraphicFromSimulation(Transform tran) {
