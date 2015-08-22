@@ -39,6 +39,7 @@ public class PhysicalObject implements Body {
         Vector3f scaledImpulse = new Vector3f(impulse);
         scaledImpulse.scale(scale);
         rigidBody.applyCentralImpulse(scaledImpulse);
+        rigidBody.activate();
     }
 
     /**
@@ -49,6 +50,7 @@ public class PhysicalObject implements Body {
         Vector3f scaledForce = new Vector3f(force);
         scaledForce.scale(scale);
         rigidBody.applyCentralForce(force);
+        rigidBody.activate();
     }
 
 //    /**
@@ -76,6 +78,7 @@ public class PhysicalObject implements Body {
 
     public void setAngularVelocity(Vector3f angularVelocity) {
         rigidBody.setAngularVelocity(angularVelocity);
+        rigidBody.activate();
     }
 
     public boolean isInWorld() {
