@@ -14,6 +14,4 @@ public interface Body extends UniqueComponent {
     void applyCentralForce(Vector3f force);
 
     Vector3f getPosition();
-
-    Quat4f getRotation();
 }

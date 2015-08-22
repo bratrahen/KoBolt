@@ -6,8 +6,9 @@ import com.bulletphysics.dynamics.RigidBodyConstructionInfo;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
 
-import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
+
+import static com.kobot.framework.entitysystem.Utilities.rotationMatrixFromEulerZYX;
 
 public class PhysicalObjectBuilder {
     private final float scale;
@@ -97,25 +98,7 @@ public class PhysicalObjectBuilder {
         Transform transform = new Transform();
         transform.setIdentity();
         transform.origin.set(position);
-
-        Matrix3f Rx = new Matrix3f();
-        Rx.setIdentity();
-        Rx.rotX(orientation.x);
-
-        Matrix3f Ry = new Matrix3f();
-        Ry.setIdentity();
-        Ry.rotY(orientation.y);
-
-        Matrix3f Rz = new Matrix3f();
-        Rz.setIdentity();
-        Rz.rotZ(orientation.z);
-
-        Matrix3f Rxyz = new Matrix3f();
-        Rxyz.setIdentity();
-        Rxyz.mul(Rz, Ry);
-        Rxyz.mul(Rxyz, Rx);
-        transform.basis.set(Rxyz);
-
+        transform.basis.set(rotationMatrixFromEulerZYX(orientation));
         return transform;
     }
 }
